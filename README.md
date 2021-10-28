@@ -6,7 +6,7 @@
 <!--#region:status-->
 ## Status
 
-**Stage:** 0  
+**Stage:** 1  
 **Champion:** Ron Buckton ([@rbuckton](https://github.com/rbuckton))  
 
 _For detailed status of this proposal see [TODO](#todo), below._  
@@ -138,6 +138,11 @@ re.test("end\n\n");     // false
 
 * [Title](url)   -->
 <!--#endregion:references-->
+
+# History
+
+- October 28, 2021 &mdash; Proposed for Stage 1 ([slides](https://1drv.ms/p/s!AjgWTO11Fk-TkfoSnHYFCoo4mYndTA?e=r0YIxu))
+  - Outcome: Advanced to Stage 1
 
 <!--#region:todo-->
 # TODO

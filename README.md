@@ -139,6 +139,11 @@ re.test("end\n\n");     // false
 * [Title](url)   -->
 <!--#endregion:references-->
 
+# History
+
+- October 28, 2021 &mdash; Proposed for Stage 1 ([slides](https://1drv.ms/p/s!AjgWTO11Fk-TkfoSnHYFCoo4mYndTA?e=r0YIxu))
+  - Outcome: Advanced to Stage 1
+
 <!--#region:todo-->
 # TODO
 

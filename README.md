@@ -6,7 +6,7 @@
 <!--#region:status-->
 ## Status
 
-**Stage:** 0  
+**Stage:** 1  
 **Champion:** Ron Buckton ([@rbuckton](https://github.com/rbuckton))  
 
 _For detailed status of this proposal see [TODO](#todo), below._  
@@ -62,7 +62,7 @@ Buffer boundaries are similar to the `^` and `$` anchors, except that they are n
 
 For more information about the `v` flag, see https://github.com/tc39/proposal-regexp-set-notation.
 
-For more information about the `\R` escape sequence, see https://github.com/rbuckton/proposal-regexp-r-escape.
+For more information about the `\R` escape sequence, see https://github.com/tc39/proposal-regexp-r-escape.
 
 <!--#endregion:syntax-->
 
@@ -153,8 +153,8 @@ The following is a high-level list of tasks to progress through each stage of th
 
 ### Stage 2 Entrance Criteria
 
-* [ ] [Initial specification text][Specification].  
-* [ ] [Transpiler support][Transpiler] (_Optional_).  
+* [x] [Initial specification text][Specification].  
+* [ ] ~~[Transpiler support][Transpiler] (_Optional_).~~  
 
 ### Stage 3 Entrance Criteria
 
@@ -179,7 +179,7 @@ The following is a high-level list of tasks to progress through each stage of th
 [Prose]: #motivations
 [Examples]: #examples
 [API]: #api
-[Specification]: https://rbuckton.github.io/proposal-regexp-buffer-boundaries
+[Specification]: https://tc39.es/proposal-regexp-buffer-boundaries
 
 [Transpiler]: #todo
 [Stage3ReviewerSignOff]: #todo

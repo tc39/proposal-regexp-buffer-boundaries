@@ -4,7 +4,7 @@
 <link rel="spec" href="es2015" />
 <pre class="metadata">
 title: Regular Expression Buffer Boundaries for ECMAScript
-stage: 1
+stage: 2
 contributors: Ron Buckton, Ecma International
 </pre>
 
@@ -49,7 +49,6 @@ contributors: Ron Buckton, Ecma International
           `^`
           `$`
           <ins>`\` `A`</ins>
-          <ins>`\` `Z`</ins>
           <ins>`\` `z`</ins>
           `\` `b`
           `\` `B`
@@ -232,6 +231,11 @@ contributors: Ron Buckton, Ecma International
       <emu-note>
         <p>A number of productions in this section are given alternative definitions in section <emu-xref href="#sec-regular-expressions-patterns"></emu-xref>.</p>
       </emu-note>
+      <ins class="block">
+        <emu-note>
+          While the sequence `\Z` is already an error when the `u` (unicode) flag is present, it is reserved for possible future use as an extension of the `\A` and `\z` assertions.
+        </emu-note>
+      </ins>
     </emu-clause>
 
     <emu-clause id="sec-pattern-semantics">
@@ -255,28 +259,6 @@ contributors: Ron Buckton, Ecma International
             1. Assert: _c_ is a Continuation.
             1. Let _e_ be _x_'s _endIndex_.
             1. If _e_ = 0, return _c_(_x_).
-            1. Return ~failure~.
-        </emu-alg>
-
-        <emu-grammar>
-          Assertion :: `\` `Z`
-        </emu-grammar>
-        <emu-alg>
-          1. Returns a new Matcher with parameters (_x_, _c_) that captures nothing and performs the following steps when called:
-            1. Assert: _x_ is a State.
-            1. Assert: _c_ is a Continuation.
-            1. Let _e_ be _x_'s _endIndex_.
-            1. If _e_ = _InputLength_, return _c_(_x_).
-            1. Let _f_ be _e_ + 1.
-            1. Let _ch_ be the character _Input_[_e_].
-            1. Let _cc_ be Canonicalize(_ch_).
-            1. Let _A_ be a CharSet containing the characters &lt;LF&gt;, &lt;VT&gt;, &lt;FF&gt;, &lt;CR&gt;, &lt;NL&gt;, &lt;LS&gt;, and &lt;PS&gt;.
-            1. If there does not exist a member _a_ of _A_ such that Canonicalize(_a_) is _cc_, return ~failure~.
-            1. If _cc_ is the character &lt;CR&gt; and _e_ + 1 &lt; _InputLength_, then
-              1. Let _nextCh_ be the character _Input_[_e_ + 1].
-              1. Let _nextCc_ be Canonicalize(_nextCh_).
-              1. If _nextCc_ is the character &lt;LF&gt;, set _f_ to _f_ + 1.
-            1. If _f_ = _InputLength_, return _c_(_x_).
             1. Return ~failure~.
         </emu-alg>
 
@@ -322,7 +304,6 @@ contributors: Ron Buckton, Ecma International
           `^`
           `$`
           <ins>`\` `A`</ins>
-          <ins>`\` `Z`</ins>
           <ins>`\` `z`</ins>
           `\` `b`
           `\` `B`

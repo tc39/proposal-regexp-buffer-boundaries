@@ -6,7 +6,7 @@
 <!--#region:status-->
 ## Status
 
-**Stage:** 1  
+**Stage:** 2  
 **Champion:** Ron Buckton ([@rbuckton](https://github.com/rbuckton))  
 
 _For detailed status of this proposal see [TODO](#todo), below._  
@@ -54,15 +54,18 @@ Buffer boundaries are similar to the `^` and `$` anchors, except that they are n
 
 - `\A` &mdash; Matches the start of the input.
 - `\z` &mdash; Matches the end of the input.
-- `\Z` &mdash; A zero-width assertion consisting of an optional newline at the end of the buffer. Equivalent to `(?=\R?\z)`.
+- ~~`\Z` &mdash; A zero-width assertion consisting of an optional newline at the end of the buffer. Equivalent to `(?=\R?\z)`.~~
 
 > NOTE: Requires the `u` or `v` flag, as `\A`, `\z`, and `\Z` are currently just escapes for `A`, `z` and `Z` without the `u` or `v` flag. 
 
 > NOTE: Not supported inside of a character class.
 
+> NOTE: The `\Z` assertion is no longer being considered as part of this proposal as of December 15th, 2021, but has
+> been reserved for possible future use.
+
 For more information about the `v` flag, see https://github.com/tc39/proposal-regexp-set-notation.
 
-For more information about the `\R` escape sequence, see https://github.com/tc39/proposal-regexp-r-escape.
+~~For more information about the `\R` escape sequence, see https://github.com/tc39/proposal-regexp-r-escape.~~
 
 <!--#endregion:syntax-->
 
@@ -109,12 +112,6 @@ re.test("\nbar");       // true
 re.test("baz");         // true
 re.test("baz\n");       // false
 re.test("\nbaz");       // true
-
-// trailing buffer boundary
-const re = /end\Z/u;
-re.test("end");         // true
-re.test("end\n");       // true (optional newline)
-re.test("end\n\n");     // false
 ```
 
 <!--#endregion:examples-->
@@ -143,6 +140,9 @@ re.test("end\n\n");     // false
 
 - October 28, 2021 &mdash; Proposed for Stage 1 ([slides](https://1drv.ms/p/s!AjgWTO11Fk-TkfoSnHYFCoo4mYndTA?e=r0YIxu))
   - Outcome: Advanced to Stage 1
+- December 15, 2021 &mdash; Proposed for Stage 2 ([slides](https://1drv.ms/p/s!AjgWTO11Fk-Tkfs-sKyEtV6B_S-poQ?e=U7ToKV))
+  - Outcome: `\A` and `\z` advanced to Stage 2 (`\Z` did not advance, but will be reserved)
+  - Stage 2 Reviewers: Richard Gibson, Waldemar Horwat
 
 <!--#region:todo-->
 # TODO
@@ -163,7 +163,7 @@ The following is a high-level list of tasks to progress through each stage of th
 
 ### Stage 3 Entrance Criteria
 
-* [ ] [Complete specification text][Specification].  
+* [x] [Complete specification text][Specification].  
 * [ ] Designated reviewers have [signed off][Stage3ReviewerSignOff] on the current spec text.  
 * [ ] The ECMAScript editor has [signed off][Stage3EditorSignOff] on the current spec text.  
 

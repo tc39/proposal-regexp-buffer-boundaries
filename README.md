@@ -1,6 +1,8 @@
 <!--#region:intro-->
 # Regular Expression Buffer Boundaries for ECMAScript
 
+This proposal seeks to introduce `\A` and `\z` character escapes to Unicode-mode regular expressions as synonyms for `^` and `$` that are not affected by the `m` (multiline) flag.
+
 <!--#endregion:intro-->
 
 <!--#region:status-->
@@ -28,6 +30,41 @@ Buffer Boundaries are a common feature across a wide array of regular expression
 allow you to match the start or end of the entire input regardless of whether the `m` (multiline) flag
 has been set. Buffer Boundaries also allow you to match the start/end of a line *and* the start/end of 
 the input in a single RegExp using the `m` flag.
+
+While its possible to emulate `\A` and `\z` using existing patterns, the alternatives are far harder to
+read and require a more comprehensive working understanding of regular experssions to interpret.
+
+For example, compare the following approaches:
+
+```js
+// emulate `m`-mode `^` outside of `m`-mode:
+const a = /^foo|(?<=^|[\u000A\u000D\u2028\u2029])bar/u;
+
+// emulate non-`m`-mode `^` inside of `m`-mode using modifiers (proposed):
+const b = /(?-m:^)foo|^bar/mu;
+
+// using `\A`:
+const c = /\Afoo|^bar/mu;
+```
+
+In the example above, it is far less likely that a reader will readily understand the expression in
+example (a). Not only is the content of the regular expression much harder to read, but understanding
+its purpose requires interpreting how **six** different features of regular expressions interact: 
+grouping, positive lookbehind, the `^` metacharacer, disjunctions, character classes, and unicode escapes.
+
+Example (b) is a an improvement, but still requires the reader to visually balance the parentheses as
+well as to interpret how **four** different regular expression features interact: grouping, modifiers
+(proposed), the `m` flag, and the `^` metacharacter.
+
+In comparison, example (c) is far easier to read. It consists of a terse escape sequence consisting
+of only two characters (`\A`), which makes it far easier to distinguish between special pattern syntax
+and plain text segments like `foo` and `bar`. 
+
+The `\A` and `\z` escapes have broad support across multiple other languages and regular expression 
+engines. As a result it has the benefit of extensive existing documentation online, including 
+[Wikipedia](https://en.wikipedia.org/wiki/Regular_expression#Examples), numerous tutorial websites, as
+well as the documentation from other languages. This significantly lessens the learning curve for `\A`
+over its alternatives.
 
 <!--#endregion:motivations-->
 

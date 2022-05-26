@@ -1,0 +1,2228 @@
+<!doctype html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+<link rel="spec" href="es2015">
+<title>Regular Expression Buffer Boundaries for ECMAScript</title><script type="application/json" id="menu-search-biblio">[{"type":"clause","id":"sec-intro","aoid":null,"title":"Introduction","titleHTML":"Introduction","number":"","namespace":"<no location>","location":"","referencingIds":[],"key":"Introduction"},{"type":"production","id":"prod-Pattern","name":"Pattern","referencingIds":["_ref_2"],"namespace":"<no location>","location":"","key":"Pattern"},{"type":"production","id":"prod-Disjunction","name":"Disjunction","referencingIds":["_ref_3","_ref_6","_ref_13","_ref_14","_ref_15","_ref_16","_ref_23","_ref_24","_ref_98","_ref_99","_ref_101","_ref_102","_ref_103","_ref_104","_ref_107","_ref_108"],"namespace":"<no location>","location":"","key":"Disjunction"},{"type":"production","id":"prod-Alternative","name":"Alternative","referencingIds":["_ref_4","_ref_5","_ref_7"],"namespace":"<no location>","location":"","key":"Alternative"},{"type":"production","id":"prod-Term","name":"Term","referencingIds":["_ref_8"],"namespace":"<no location>","location":"","key":"Term"},{"type":"production","id":"prod-Assertion","name":"Assertion","referencingIds":["_ref_9"],"namespace":"<no location>","location":"","key":"Assertion"},{"type":"production","id":"prod-Quantifier","name":"Quantifier","referencingIds":["_ref_12","_ref_90","_ref_93","_ref_96"],"namespace":"<no location>","location":"","key":"Quantifier"},{"type":"production","id":"prod-QuantifierPrefix","name":"QuantifierPrefix","referencingIds":["_ref_17","_ref_18"],"namespace":"<no location>","location":"","key":"QuantifierPrefix"},{"type":"production","id":"prod-Atom","name":"Atom","referencingIds":["_ref_10","_ref_11","_ref_89","_ref_91"],"namespace":"<no location>","location":"","key":"Atom"},{"type":"production","id":"prod-SyntaxCharacter","name":"SyntaxCharacter","referencingIds":["_ref_25","_ref_54","_ref_121"],"namespace":"<no location>","location":"","key":"SyntaxCharacter"},{"type":"production","id":"prod-PatternCharacter","name":"PatternCharacter","referencingIds":["_ref_19"],"namespace":"<no location>","location":"","key":"PatternCharacter"},{"type":"production","id":"prod-AtomEscape","name":"AtomEscape","referencingIds":["_ref_20"],"namespace":"<no location>","location":"","key":"AtomEscape"},{"type":"production","id":"prod-CharacterEscape","name":"CharacterEscape","referencingIds":["_ref_28","_ref_87"],"namespace":"<no location>","location":"","key":"CharacterEscape"},{"type":"production","id":"prod-ControlEscape","name":"ControlEscape","referencingIds":["_ref_30","_ref_117"],"namespace":"<no location>","location":"","key":"ControlEscape"},{"type":"production","id":"prod-ControlLetter","name":"ControlLetter","referencingIds":["_ref_31","_ref_68","_ref_118"],"namespace":"<no location>","location":"","key":"ControlLetter"},{"type":"production","id":"prod-GroupSpecifier","name":"GroupSpecifier","referencingIds":["_ref_22"],"namespace":"<no location>","location":"","key":"GroupSpecifier"},{"type":"production","id":"prod-GroupName","name":"GroupName","referencingIds":["_ref_29","_ref_34","_ref_116"],"namespace":"<no location>","location":"","key":"GroupName"},{"type":"production","id":"prod-RegExpIdentifierName","name":"RegExpIdentifierName","referencingIds":["_ref_35","_ref_37"],"namespace":"<no location>","location":"","key":"RegExpIdentifierName"},{"type":"production","id":"prod-RegExpIdentifierStart","name":"RegExpIdentifierStart","referencingIds":["_ref_36"],"namespace":"<no location>","location":"","key":"RegExpIdentifierStart"},{"type":"production","id":"prod-RegExpIdentifierPart","name":"RegExpIdentifierPart","referencingIds":["_ref_38"],"namespace":"<no location>","location":"","key":"RegExpIdentifierPart"},{"type":"production","id":"prod-RegExpUnicodeEscapeSequence","name":"RegExpUnicodeEscapeSequence","referencingIds":["_ref_32","_ref_39","_ref_42","_ref_119"],"namespace":"<no location>","location":"","key":"RegExpUnicodeEscapeSequence"},{"type":"production","id":"prod-UnicodeLeadSurrogate","name":"UnicodeLeadSurrogate","referencingIds":["_ref_40","_ref_43"],"namespace":"<no location>","location":"","key":"UnicodeLeadSurrogate"},{"type":"production","id":"prod-UnicodeTrailSurrogate","name":"UnicodeTrailSurrogate","referencingIds":["_ref_41","_ref_44"],"namespace":"<no location>","location":"","key":"UnicodeTrailSurrogate"},{"type":"production","id":"prod-HexLeadSurrogate","name":"HexLeadSurrogate","referencingIds":["_ref_45","_ref_47","_ref_51","_ref_52"],"namespace":"<no location>","location":"","key":"HexLeadSurrogate"},{"type":"production","id":"prod-HexTrailSurrogate","name":"HexTrailSurrogate","referencingIds":["_ref_46","_ref_48","_ref_50","_ref_53"],"namespace":"<no location>","location":"","key":"HexTrailSurrogate"},{"type":"production","id":"prod-HexNonSurrogate","name":"HexNonSurrogate","referencingIds":["_ref_49"],"namespace":"<no location>","location":"","key":"HexNonSurrogate"},{"type":"production","id":"prod-IdentityEscape","name":"IdentityEscape","referencingIds":["_ref_33"],"namespace":"<no location>","location":"","key":"IdentityEscape"},{"type":"production","id":"prod-DecimalEscape","name":"DecimalEscape","referencingIds":["_ref_26","_ref_111","_ref_112","_ref_113"],"namespace":"<no location>","location":"","key":"DecimalEscape"},{"type":"production","id":"prod-CharacterClassEscape","name":"CharacterClassEscape","referencingIds":["_ref_27","_ref_86","_ref_114","_ref_125"],"namespace":"<no location>","location":"","key":"CharacterClassEscape"},{"type":"production","id":"prod-UnicodePropertyValueExpression","name":"UnicodePropertyValueExpression","referencingIds":["_ref_55","_ref_56"],"namespace":"<no location>","location":"","key":"UnicodePropertyValueExpression"},{"type":"production","id":"prod-UnicodePropertyName","name":"UnicodePropertyName","referencingIds":["_ref_57"],"namespace":"<no location>","location":"","key":"UnicodePropertyName"},{"type":"production","id":"prod-UnicodePropertyNameCharacters","name":"UnicodePropertyNameCharacters","referencingIds":["_ref_60","_ref_62"],"namespace":"<no location>","location":"","key":"UnicodePropertyNameCharacters"},{"type":"production","id":"prod-UnicodePropertyValue","name":"UnicodePropertyValue","referencingIds":["_ref_58"],"namespace":"<no location>","location":"","key":"UnicodePropertyValue"},{"type":"production","id":"prod-LoneUnicodePropertyNameOrValue","name":"LoneUnicodePropertyNameOrValue","referencingIds":["_ref_59"],"namespace":"<no location>","location":"","key":"LoneUnicodePropertyNameOrValue"},{"type":"production","id":"prod-UnicodePropertyValueCharacters","name":"UnicodePropertyValueCharacters","referencingIds":["_ref_63","_ref_64","_ref_66"],"namespace":"<no location>","location":"","key":"UnicodePropertyValueCharacters"},{"type":"production","id":"prod-UnicodePropertyValueCharacter","name":"UnicodePropertyValueCharacter","referencingIds":["_ref_65"],"namespace":"<no location>","location":"","key":"UnicodePropertyValueCharacter"},{"type":"production","id":"prod-UnicodePropertyNameCharacter","name":"UnicodePropertyNameCharacter","referencingIds":["_ref_61","_ref_67"],"namespace":"<no location>","location":"","key":"UnicodePropertyNameCharacter"},{"type":"production","id":"prod-CharacterClass","name":"CharacterClass","referencingIds":["_ref_21","_ref_106"],"namespace":"<no location>","location":"","key":"CharacterClass"},{"type":"production","id":"prod-ClassRanges","name":"ClassRanges","referencingIds":["_ref_69","_ref_70","_ref_77","_ref_83"],"namespace":"<no location>","location":"","key":"ClassRanges"},{"type":"production","id":"prod-NonemptyClassRanges","name":"NonemptyClassRanges","referencingIds":["_ref_71"],"namespace":"<no location>","location":"","key":"NonemptyClassRanges"},{"type":"production","id":"prod-NonemptyClassRangesNoDash","name":"NonemptyClassRangesNoDash","referencingIds":["_ref_74","_ref_80"],"namespace":"<no location>","location":"","key":"NonemptyClassRangesNoDash"},{"type":"production","id":"prod-ClassAtom","name":"ClassAtom","referencingIds":["_ref_72","_ref_73","_ref_75","_ref_76","_ref_78","_ref_82"],"namespace":"<no location>","location":"","key":"ClassAtom"},{"type":"production","id":"prod-ClassAtomNoDash","name":"ClassAtomNoDash","referencingIds":["_ref_79","_ref_81","_ref_84"],"namespace":"<no location>","location":"","key":"ClassAtomNoDash"},{"type":"production","id":"prod-ClassEscape","name":"ClassEscape","referencingIds":["_ref_85"],"namespace":"<no location>","location":"","key":"ClassEscape"},{"type":"clause","id":"sec-patterns","aoid":null,"title":"Patterns","titleHTML":"Patterns","number":"1.1.1","namespace":"<no location>","location":"","referencingIds":["_ref_1"],"key":"Patterns"},{"type":"clause","id":"sec-compileassertion","aoid":null,"title":"\n          Runtime Semantics: CompileAssertion\n        ","titleHTML":"\n          Runtime Semantics: CompileAssertion\n        ","number":"1.1.2.1","namespace":"<no location>","location":"","referencingIds":[],"key":"\n          Runtime Semantics: CompileAssertion\n        "},{"type":"clause","id":"sec-pattern-semantics","aoid":null,"title":"Pattern Semantics","titleHTML":"Pattern Semantics","number":"1.1.2","namespace":"<no location>","location":"","referencingIds":[],"key":"Pattern Semantics"},{"type":"clause","id":"sec-regexp-regular-expression-objects","aoid":null,"title":"RegExp (Regular Expression) Objects","titleHTML":"RegExp (Regular Expression) Objects","number":"1.1","namespace":"<no location>","location":"","referencingIds":[],"key":"RegExp (Regular Expression) Objects"},{"type":"clause","id":"sec-text-processing","aoid":null,"title":"Text Processing","titleHTML":"Text Processing","number":"1","namespace":"<no location>","location":"","referencingIds":[],"key":"Text Processing"},{"type":"clause","id":"sec-regular-expressions-patterns","aoid":null,"title":"Regular Expressions Patterns","titleHTML":"Regular Expressions Patterns","number":"A.1.1","namespace":"<no location>","location":"","referencingIds":["_ref_0"],"key":"Regular Expressions Patterns"},{"type":"clause","id":"sec-additional-syntax","aoid":null,"title":"Additional Syntax","titleHTML":"Additional Syntax","number":"A.1","namespace":"<no location>","location":"","referencingIds":[],"key":"Additional Syntax"},{"type":"clause","id":"sec-additional-ecmascript-features-for-web-browsers","aoid":null,"title":"Additional ECMAScript Features for Web Browsers","titleHTML":"Additional ECMAScript Features for Web Browsers","number":"A","namespace":"<no location>","location":"","referencingIds":[],"key":"Additional ECMAScript Features for Web Browsers"},{"type":"clause","id":"sec-copyright-and-software-license","aoid":null,"title":"Copyright & Software License","titleHTML":"Copyright &amp; Software License","number":"B","namespace":"<no location>","location":"","referencingIds":[],"key":"Copyright & Software License"},{"type":"production","id":"prod-annexB-Term","name":"Term","referencingIds":[],"namespace":"annexB","location":"","key":"Term"},{"type":"production","id":"prod-annexB-Assertion","name":"Assertion","referencingIds":["_ref_88","_ref_94"],"namespace":"annexB","location":"","key":"Assertion"},{"type":"production","id":"prod-annexB-QuantifiableAssertion","name":"QuantifiableAssertion","referencingIds":["_ref_92","_ref_100"],"namespace":"annexB","location":"","key":"QuantifiableAssertion"},{"type":"production","id":"prod-annexB-ExtendedAtom","name":"ExtendedAtom","referencingIds":["_ref_95","_ref_97"],"namespace":"annexB","location":"","key":"ExtendedAtom"},{"type":"production","id":"prod-annexB-InvalidBracedQuantifier","name":"InvalidBracedQuantifier","referencingIds":["_ref_109"],"namespace":"annexB","location":"","key":"InvalidBracedQuantifier"},{"type":"production","id":"prod-annexB-ExtendedPatternCharacter","name":"ExtendedPatternCharacter","referencingIds":["_ref_110"],"namespace":"annexB","location":"","key":"ExtendedPatternCharacter"},{"type":"production","id":"prod-annexB-AtomEscape","name":"AtomEscape","referencingIds":["_ref_105"],"namespace":"annexB","location":"","key":"AtomEscape"},{"type":"production","id":"prod-annexB-CharacterEscape","name":"CharacterEscape","referencingIds":["_ref_115","_ref_126"],"namespace":"annexB","location":"","key":"CharacterEscape"},{"type":"production","id":"prod-annexB-IdentityEscape","name":"IdentityEscape","referencingIds":["_ref_120"],"namespace":"annexB","location":"","key":"IdentityEscape"},{"type":"production","id":"prod-annexB-SourceCharacterIdentityEscape","name":"SourceCharacterIdentityEscape","referencingIds":["_ref_122"],"namespace":"annexB","location":"","key":"SourceCharacterIdentityEscape"},{"type":"production","id":"prod-annexB-ClassAtomNoDash","name":"ClassAtomNoDash","referencingIds":[],"namespace":"annexB","location":"","key":"ClassAtomNoDash"},{"type":"production","id":"prod-annexB-ClassEscape","name":"ClassEscape","referencingIds":["_ref_123"],"namespace":"annexB","location":"","key":"ClassEscape"},{"type":"production","id":"prod-annexB-ClassControlLetter","name":"ClassControlLetter","referencingIds":["_ref_124"],"namespace":"annexB","location":"","key":"ClassControlLetter"}]</script><script>"use strict";
+
+function Search(menu) {
+  this.menu = menu;
+  this.$search = document.getElementById('menu-search');
+  this.$searchBox = document.getElementById('menu-search-box');
+  this.$searchResults = document.getElementById('menu-search-results');
+
+  this.loadBiblio();
+
+  document.addEventListener('keydown', this.documentKeydown.bind(this));
+
+  this.$searchBox.addEventListener('keydown', debounce(this.searchBoxKeydown.bind(this), { stopPropagation: true }));
+  this.$searchBox.addEventListener('keyup', debounce(this.searchBoxKeyup.bind(this), { stopPropagation: true }));
+
+  // Perform an initial search if the box is not empty.
+  if (this.$searchBox.value) {
+    this.search(this.$searchBox.value);
+  }
+}
+
+Search.prototype.loadBiblio = function () {
+  var $biblio = document.getElementById('menu-search-biblio');
+  if (!$biblio) {
+    this.biblio = [];
+  } else {
+    this.biblio = JSON.parse($biblio.textContent);
+    this.biblio.clauses = this.biblio.filter(function (e) { return e.type === 'clause' });
+    this.biblio.byId = this.biblio.reduce(function (map, entry) {
+      map[entry.id] = entry;
+      return map;
+    }, {});
+  }
+}
+
+Search.prototype.documentKeydown = function (e) {
+  if (e.keyCode === 191) {
+    e.preventDefault();
+    e.stopPropagation();
+    this.triggerSearch();
+  }
+}
+
+Search.prototype.searchBoxKeydown = function (e) {
+  e.stopPropagation();
+  e.preventDefault();
+  if (e.keyCode === 191 && e.target.value.length === 0) {
+    e.preventDefault();
+  } else if (e.keyCode === 13) {
+    e.preventDefault();
+    this.selectResult();
+  }
+}
+
+Search.prototype.searchBoxKeyup = function (e) {
+  if (e.keyCode === 13 || e.keyCode === 9) {
+    return;
+  }
+
+  this.search(e.target.value);
+}
+
+
+Search.prototype.triggerSearch = function (e) {
+  if (this.menu.isVisible()) {
+    this._closeAfterSearch = false;
+  } else {
+    this._closeAfterSearch = true;
+    this.menu.show();
+  }
+
+  this.$searchBox.focus();
+  this.$searchBox.select();
+}
+// bit 12 - Set if the result starts with searchString
+// bits 8-11: 8 - number of chunks multiplied by 2 if cases match, otherwise 1.
+// bits 1-7: 127 - length of the entry
+// General scheme: prefer case sensitive matches with fewer chunks, and otherwise
+// prefer shorter matches.
+function relevance(result, searchString) {
+  var relevance = 0;
+
+  relevance = Math.max(0, 8 - result.match.chunks) << 7;
+
+  if (result.match.caseMatch) {
+    relevance *= 2;
+  }
+
+  if (result.match.prefix) {
+    relevance += 2048
+  }
+
+  relevance += Math.max(0, 255 - result.entry.key.length);
+
+  return relevance;
+}
+
+Search.prototype.search = function (searchString) {
+  if (searchString === '') {
+    this.displayResults([]);
+    this.hideSearch();
+    return;
+  } else {
+    this.showSearch();
+  }
+
+  if (searchString.length === 1) {
+    this.displayResults([]);
+    return;
+  }
+
+  var results;
+
+  if (/^[\d\.]*$/.test(searchString)) {
+    results = this.biblio.clauses.filter(function (clause) {
+      return clause.number.substring(0, searchString.length) === searchString;
+    }).map(function (clause) {
+      return { entry: clause };
+    });
+  } else {
+    results = [];
+
+    for (var i = 0; i < this.biblio.length; i++) {
+      var entry = this.biblio[i];
+      if (!entry.key) {
+        // biblio entries without a key aren't searchable
+        continue;
+      }
+
+      var match = fuzzysearch(searchString, entry.key);
+      if (match) {
+        results.push({ entry: entry, match: match });
+      }
+    }
+
+    results.forEach(function (result) {
+      result.relevance = relevance(result, searchString);
+    });
+
+    results = results.sort(function (a, b) { return b.relevance - a.relevance });
+
+  }
+
+  if (results.length > 50) {
+    results = results.slice(0, 50);
+  }
+
+  this.displayResults(results);
+}
+Search.prototype.hideSearch = function () {
+  this.$search.classList.remove('active');
+}
+
+Search.prototype.showSearch = function () {
+  this.$search.classList.add('active');
+}
+
+Search.prototype.selectResult = function () {
+  var $first = this.$searchResults.querySelector('li:first-child a');
+
+  if ($first) {
+    document.location = $first.getAttribute('href');
+  }
+
+  this.$searchBox.value = '';
+  this.$searchBox.blur();
+  this.displayResults([]);
+  this.hideSearch();
+
+  if (this._closeAfterSearch) {
+    this.menu.hide();
+  }
+}
+
+Search.prototype.displayResults = function (results) {
+  if (results.length > 0) {
+    this.$searchResults.classList.remove('no-results');
+
+    var html = '<ul>';
+
+    results.forEach(function (result) {
+      var entry = result.entry;
+      var id = entry.id;
+      var cssClass = '';
+      var text = '';
+
+      if (entry.type === 'clause') {
+        var number = entry.number ? entry.number + ' ' : '';
+        text = number + entry.key;
+        cssClass = 'clause';
+        id = entry.id;
+      } else if (entry.type === 'production') {
+        text = entry.key;
+        cssClass = 'prod';
+        id = entry.id;
+      } else if (entry.type === 'op') {
+        text = entry.key;
+        cssClass = 'op';
+        id = entry.id || entry.refId;
+      } else if (entry.type === 'term') {
+        text = entry.key;
+        cssClass = 'term';
+        id = entry.id || entry.refId;
+      }
+
+      if (text) {
+        html += '<li class=menu-search-result-' + cssClass + '><a href="#' + id + '">' + text + '</a></li>';
+      }
+    });
+
+    html += '</ul>'
+
+    this.$searchResults.innerHTML = html;
+  } else {
+    this.$searchResults.innerHTML = '';
+    this.$searchResults.classList.add('no-results');
+  }
+}
+
+
+function Menu() {
+  this.$toggle = document.getElementById('menu-toggle');
+  this.$menu = document.getElementById('menu');
+  this.$toc = document.querySelector('menu-toc > ol');
+  this.$pins = document.querySelector('#menu-pins');
+  this.$pinList = document.getElementById('menu-pins-list');
+  this.$toc = document.querySelector('#menu-toc > ol');
+  this.$specContainer = document.getElementById('spec-container');
+  this.search = new Search(this);
+
+  this._pinnedIds = {}; 
+  this.loadPinEntries();
+
+  // toggle menu
+  this.$toggle.addEventListener('click', this.toggle.bind(this));
+
+  // keydown events for pinned clauses
+  document.addEventListener('keydown', this.documentKeydown.bind(this));
+
+  // toc expansion
+  var tocItems = this.$menu.querySelectorAll('#menu-toc li');
+  for (var i = 0; i < tocItems.length; i++) {
+    var $item = tocItems[i];
+    $item.addEventListener('click', function($item, event) {
+      $item.classList.toggle('active');
+      event.stopPropagation();
+    }.bind(null, $item));
+  }
+
+  // close toc on toc item selection
+  var tocLinks = this.$menu.querySelectorAll('#menu-toc li > a');
+  for (var i = 0; i < tocLinks.length; i++) {
+    var $link = tocLinks[i];
+    $link.addEventListener('click', function(event) {
+      this.toggle();
+      event.stopPropagation();
+    }.bind(this));
+  }
+
+  // update active clause on scroll
+  window.addEventListener('scroll', debounce(this.updateActiveClause.bind(this)));
+  this.updateActiveClause();
+
+  // prevent menu scrolling from scrolling the body
+  this.$toc.addEventListener('wheel', function (e) {
+    var target = e.currentTarget;
+    var offTop = e.deltaY < 0 && target.scrollTop === 0;
+    if (offTop) {
+      e.preventDefault();
+    }
+    var offBottom = e.deltaY > 0
+                    && target.offsetHeight + target.scrollTop >= target.scrollHeight;
+
+    if (offBottom) {
+      e.preventDefault();
+    }
+  });
+}
+
+Menu.prototype.documentKeydown = function (e) {
+  e.stopPropagation();
+  if (e.keyCode === 80) {
+    this.togglePinEntry();
+  } else if (e.keyCode > 48 && e.keyCode < 58) {
+    this.selectPin(e.keyCode - 49);
+  }
+}
+
+Menu.prototype.updateActiveClause = function () {
+  this.setActiveClause(findActiveClause(this.$specContainer))
+}
+
+Menu.prototype.setActiveClause = function (clause) {
+  this.$activeClause = clause;
+  this.revealInToc(this.$activeClause);
+}
+
+Menu.prototype.revealInToc = function (path) {
+  var current = this.$toc.querySelectorAll('li.revealed');
+  for (var i = 0; i < current.length; i++) {
+    current[i].classList.remove('revealed');
+    current[i].classList.remove('revealed-leaf');
+  }
+
+  var current = this.$toc;
+  var index = 0;
+  while (index < path.length) {
+    var children = current.children;
+    for (var i = 0; i < children.length; i++) {
+      if ('#' + path[index].id === children[i].children[1].getAttribute('href') ) {
+        children[i].classList.add('revealed');
+        if (index === path.length - 1) {
+          children[i].classList.add('revealed-leaf');
+          var rect = children[i].getBoundingClientRect();
+          // this.$toc.getBoundingClientRect().top;
+          var tocRect = this.$toc.getBoundingClientRect();
+          if (rect.top + 10 > tocRect.bottom) {
+            this.$toc.scrollTop = this.$toc.scrollTop + (rect.top - tocRect.bottom) + (rect.bottom - rect.top);
+          } else if (rect.top < tocRect.top) {
+            this.$toc.scrollTop = this.$toc.scrollTop - (tocRect.top - rect.top);
+          }
+        }
+        current = children[i].querySelector('ol');
+        index++;
+        break;
+      }
+    }
+
+  }
+}
+
+function findActiveClause(root, path) {
+  var clauses = new ClauseWalker(root);
+  var $clause;
+  var path = path || [];
+
+  while ($clause = clauses.nextNode()) {
+    var rect = $clause.getBoundingClientRect();
+    var $header = $clause.querySelector("h1");
+    var marginTop = parseInt(getComputedStyle($header)["margin-top"]);
+
+    if ((rect.top - marginTop) <= 0 && rect.bottom > 0) {
+      return findActiveClause($clause, path.concat($clause)) || path;
+    }
+  }
+
+  return path;
+}
+
+function ClauseWalker(root) {
+  var previous;
+  var treeWalker = document.createTreeWalker(
+    root,
+    NodeFilter.SHOW_ELEMENT,
+    {
+      acceptNode: function (node) {
+        if (previous === node.parentNode) {
+          return NodeFilter.FILTER_REJECT;
+        } else {
+          previous = node;
+        }
+        if (node.nodeName === 'EMU-CLAUSE' || node.nodeName === 'EMU-INTRO' || node.nodeName === 'EMU-ANNEX') {
+          return NodeFilter.FILTER_ACCEPT;
+        } else {
+          return NodeFilter.FILTER_SKIP;
+        }
+      }
+    },
+    false
+    );
+
+  return treeWalker;
+}
+
+Menu.prototype.toggle = function () {
+  this.$menu.classList.toggle('active');
+}
+
+Menu.prototype.show = function () {
+  this.$menu.classList.add('active');
+}
+
+Menu.prototype.hide = function () {
+  this.$menu.classList.remove('active');
+}
+
+Menu.prototype.isVisible = function() {
+  return this.$menu.classList.contains('active');
+}
+
+Menu.prototype.showPins = function () {
+  this.$pins.classList.add('active');
+}
+
+Menu.prototype.hidePins = function () {
+  this.$pins.classList.remove('active');
+}
+
+Menu.prototype.addPinEntry = function (id) {
+  var entry = this.search.biblio.byId[id];
+  if (!entry) {
+    // id was deleted after pin (or something) so remove it
+    delete this._pinnedIds[id];
+    this.persistPinEntries();
+    return;
+  }
+
+  if (entry.type === 'clause') {
+    var prefix;
+    if (entry.number) {
+      prefix = entry.number + ' ';
+    } else {
+      prefix = '';
+    }
+    this.$pinList.innerHTML += '<li><a href="#' + entry.id + '">' + prefix + entry.titleHTML + '</a></li>';
+  } else {
+    this.$pinList.innerHTML += '<li><a href="#' + entry.id + '">' + entry.key + '</a></li>';
+  }
+
+  if (Object.keys(this._pinnedIds).length === 0) {
+    this.showPins();
+  }
+  this._pinnedIds[id] = true;
+  this.persistPinEntries();
+}
+
+Menu.prototype.removePinEntry = function (id) {
+  var item = this.$pinList.querySelector('a[href="#' + id + '"]').parentNode;
+  this.$pinList.removeChild(item);
+  delete this._pinnedIds[id];
+  if (Object.keys(this._pinnedIds).length === 0) {
+    this.hidePins();
+  }
+
+  this.persistPinEntries();
+}
+
+Menu.prototype.persistPinEntries = function () {
+  try {
+    if (!window.localStorage) return;
+  } catch (e) {
+    return;
+  }
+
+  localStorage.pinEntries = JSON.stringify(Object.keys(this._pinnedIds));
+}
+
+Menu.prototype.loadPinEntries = function () {
+  try {
+    if (!window.localStorage) return;
+  } catch (e) {
+    return;
+  }
+
+  var pinsString = window.localStorage.pinEntries;
+  if (!pinsString) return;
+  var pins = JSON.parse(pinsString);
+  for(var i = 0; i < pins.length; i++) {
+    this.addPinEntry(pins[i]);
+  }
+}
+
+Menu.prototype.togglePinEntry = function (id) {
+  if (!id) {
+    id = this.$activeClause[this.$activeClause.length - 1].id;
+  }
+
+  if (this._pinnedIds[id]) {
+    this.removePinEntry(id);
+  } else {
+    this.addPinEntry(id);
+  }
+}
+
+Menu.prototype.selectPin = function (num) {
+  document.location = this.$pinList.children[num].children[0].href;
+}
+
+var menu;
+function init() {
+  menu = new Menu();
+  var $container = document.getElementById('spec-container');
+  $container.addEventListener('mouseover', debounce(function (e) {
+    Toolbox.activateIfMouseOver(e);
+  }));
+  document.addEventListener('keydown', debounce(function (e) {
+    if (e.code === "Escape" && Toolbox.active) {
+      Toolbox.deactivate();
+    }
+  }));
+}
+
+document.addEventListener('DOMContentLoaded', init);
+
+function debounce(fn, opts) {
+  opts = opts || {};
+  var timeout;
+  return function(e) {
+    if (opts.stopPropagation) {
+      e.stopPropagation();
+    }
+    var args = arguments;
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+    timeout = setTimeout(function() {
+      timeout = null;
+      fn.apply(this, args);
+    }.bind(this), 150);
+  }
+}
+
+var CLAUSE_NODES = ['EMU-CLAUSE', 'EMU-INTRO', 'EMU-ANNEX'];
+function findLocalReferences ($elem) {
+  var name = $elem.innerHTML;
+  var references = [];
+
+  var parentClause = $elem.parentNode;
+  while (parentClause && CLAUSE_NODES.indexOf(parentClause.nodeName) === -1) {
+    parentClause = parentClause.parentNode;
+  }
+
+  if(!parentClause) return;
+
+  var vars = parentClause.querySelectorAll('var');
+
+  for (var i = 0; i < vars.length; i++) {
+    var $var = vars[i];
+
+    if ($var.innerHTML === name) {
+      references.push($var);
+    }
+  }
+
+  return references;
+}
+
+function toggleFindLocalReferences($elem) {
+  var references = findLocalReferences($elem);
+  if ($elem.classList.contains('referenced')) {
+    references.forEach(function ($reference) {
+      $reference.classList.remove('referenced');
+    });
+  } else {
+    references.forEach(function ($reference) {
+      $reference.classList.add('referenced');
+    });
+  }
+}
+
+function installFindLocalReferences () {
+  document.addEventListener('click', function (e) {
+    if (e.target.nodeName === 'VAR') {
+      toggleFindLocalReferences(e.target);
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', installFindLocalReferences);
+
+
+
+
+// The following license applies to the fuzzysearch function
+// The MIT License (MIT)
+// Copyright © 2015 Nicolas Bevacqua
+// Copyright © 2016 Brian Terlson
+// Permission is hereby granted, free of charge, to any person obtaining a copy of
+// this software and associated documentation files (the "Software"), to deal in
+// the Software without restriction, including without limitation the rights to
+// use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+// the Software, and to permit persons to whom the Software is furnished to do so,
+// subject to the following conditions:
+
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+// FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+// COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+// IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+// CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+function fuzzysearch (searchString, haystack, caseInsensitive) {
+  var tlen = haystack.length;
+  var qlen = searchString.length;
+  var chunks = 1;
+  var finding = false;
+
+  if (qlen > tlen) {
+    return false;
+  }
+
+  if (qlen === tlen) {
+    if (searchString === haystack) {
+      return { caseMatch: true, chunks: 1, prefix: true };
+    } else if (searchString.toLowerCase() === haystack.toLowerCase()) {
+      return { caseMatch: false, chunks: 1, prefix: true };
+    } else {
+      return false;
+    }
+  }
+
+  outer: for (var i = 0, j = 0; i < qlen; i++) {
+    var nch = searchString[i];
+    while (j < tlen) {
+      var targetChar = haystack[j++];
+      if (targetChar === nch) {
+        finding = true;
+        continue outer;
+      }
+      if (finding) {
+        chunks++;
+        finding = false;
+      }
+    }
+
+    if (caseInsensitive) { return false; }
+
+    return fuzzysearch(searchString.toLowerCase(), haystack.toLowerCase(), true);
+  }
+
+  return { caseMatch: !caseInsensitive, chunks: chunks, prefix: j <= qlen };
+}
+
+var Toolbox = {
+  init: function () {
+    this.$container = document.createElement('div');
+    this.$container.classList.add('toolbox');
+    this.$permalink = document.createElement('a');
+    this.$permalink.textContent = 'Permalink';
+    this.$pinLink = document.createElement('a');
+    this.$pinLink.textContent = 'Pin';
+    this.$pinLink.setAttribute('href', '#');
+    this.$pinLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      menu.togglePinEntry(this.entry.id);
+    }.bind(this));
+
+    this.$refsLink = document.createElement('a');
+    this.$refsLink.setAttribute('href', '#');
+    this.$refsLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      referencePane.showReferencesFor(this.entry);
+    }.bind(this));
+    this.$container.appendChild(this.$permalink);
+    this.$container.appendChild(this.$pinLink);
+    this.$container.appendChild(this.$refsLink);
+    document.body.appendChild(this.$container);
+  },
+
+  activate: function (el, entry, target) {
+    if (el === this._activeEl) return;
+    this.active = true;
+    this.entry = entry;
+    this.$container.classList.add('active');
+    this.top = el.offsetTop - this.$container.offsetHeight - 10;
+    this.left = el.offsetLeft;
+    this.$container.setAttribute('style', 'left: ' + this.left + 'px; top: ' + this.top + 'px');
+    this.updatePermalink();
+    this.updateReferences();
+    this._activeEl = el;
+    if (this.top < document.body.scrollTop && el === target) {
+      // don't scroll unless it's a small thing (< 200px)
+      this.$container.scrollIntoView();
+    }
+  },
+
+  updatePermalink: function () {
+    this.$permalink.setAttribute('href', '#' + this.entry.id);
+  },
+
+  updateReferences: function () {
+    this.$refsLink.textContent = 'References (' + this.entry.referencingIds.length + ')';
+  },
+
+  activateIfMouseOver: function (e) {
+    var ref = this.findReferenceUnder(e.target);
+    if (ref && (!this.active || e.pageY > this._activeEl.offsetTop)) {
+      var entry = menu.search.biblio.byId[ref.id];
+      this.activate(ref.element, entry, e.target);
+    } else if (this.active && ((e.pageY < this.top) || e.pageY > (this._activeEl.offsetTop + this._activeEl.offsetHeight))) {
+      this.deactivate();
+    }
+  },
+
+  findReferenceUnder: function (el) {
+    while (el) {
+      var parent = el.parentNode;
+      if (el.nodeName === 'H1' && parent.nodeName.match(/EMU-CLAUSE|EMU-ANNEX|EMU-INTRO/) && parent.id) {
+        return { element: el, id: parent.id };
+      } else if (el.nodeName.match(/EMU-(?!CLAUSE|XREF|ANNEX|INTRO)|DFN/) &&
+                el.id && el.id[0] !== '_') {
+        if (el.nodeName === 'EMU-FIGURE' || el.nodeName === 'EMU-TABLE' || el.nodeName === 'EMU-EXAMPLE') {
+          // return the figcaption element
+          return { element: el.children[0].children[0], id: el.id };
+        } else if (el.nodeName === 'EMU-PRODUCTION') {
+          // return the LHS non-terminal element
+          return { element: el.children[0], id: el.id };
+        } else {
+          return { element: el, id: el.id };
+        }
+      }
+      el = parent;
+    }
+  },
+
+  deactivate: function () {
+    this.$container.classList.remove('active');
+    this._activeEl = null;
+    this.activeElBounds = null;
+    this.active = false;
+  }
+}
+
+var referencePane = {
+  init: function() {
+    this.$container = document.createElement('div');
+    this.$container.setAttribute('id', 'references-pane-container');
+
+    var $spacer = document.createElement('div');
+    $spacer.setAttribute('id', 'references-pane-spacer');
+
+    this.$pane = document.createElement('div');
+    this.$pane.setAttribute('id', 'references-pane');
+
+    this.$container.appendChild($spacer);
+    this.$container.appendChild(this.$pane);
+
+    this.$header = document.createElement('div');
+    this.$header.classList.add('menu-pane-header');
+    this.$header.textContent = 'References to ';
+    this.$headerRefId = document.createElement('a');
+    this.$header.appendChild(this.$headerRefId);
+    this.$closeButton = document.createElement('span');
+    this.$closeButton.setAttribute('id', 'references-pane-close');
+    this.$closeButton.addEventListener('click', function (e) {
+      this.deactivate();
+    }.bind(this));
+    this.$header.appendChild(this.$closeButton);
+
+    this.$pane.appendChild(this.$header);
+    var tableContainer = document.createElement('div');
+    tableContainer.setAttribute('id', 'references-pane-table-container');
+
+    this.$table = document.createElement('table');
+    this.$table.setAttribute('id', 'references-pane-table');
+
+    this.$tableBody = this.$table.createTBody();
+
+    tableContainer.appendChild(this.$table);
+    this.$pane.appendChild(tableContainer);
+
+    menu.$specContainer.appendChild(this.$container);
+  },
+
+  activate: function () {
+    this.$container.classList.add('active');
+  },
+
+  deactivate: function () {
+    this.$container.classList.remove('active');
+  },
+
+  showReferencesFor(entry) {
+    this.activate();
+    var newBody = document.createElement('tbody');
+    var previousId;
+    var previousCell;
+    var dupCount = 0;
+    this.$headerRefId.textContent = '#' + entry.id;
+    this.$headerRefId.setAttribute('href', '#' + entry.id);
+    entry.referencingIds.map(function (id) {
+      var target = document.getElementById(id);
+      var cid = findParentClauseId(target);
+      var clause = menu.search.biblio.byId[cid];
+      return { id: id, clause: clause }
+    }).sort(function (a, b) {
+      return sortByClauseNumber(a.clause, b.clause);
+    }).forEach(function (record, i) {
+      if (previousId === record.clause.id) {
+        previousCell.innerHTML += ' (<a href="#' + record.id + '">' + (dupCount + 2) + '</a>)';
+        dupCount++;
+      } else {
+        var row = newBody.insertRow();
+        var cell = row.insertCell();
+        cell.innerHTML = record.clause.number;
+        cell = row.insertCell();
+        cell.innerHTML = '<a href="#' + record.id + '">' + record.clause.titleHTML + '</a>';
+        previousCell = cell;
+        previousId = record.clause.id;
+        dupCount = 0;
+      }
+    }, this);
+    this.$table.removeChild(this.$tableBody);
+    this.$tableBody = newBody;
+    this.$table.appendChild(this.$tableBody);
+  }
+}
+function findParentClauseId(node) {
+  while (node && node.nodeName !== 'EMU-CLAUSE' && node.nodeName !== 'EMU-INTRO' && node.nodeName !== 'EMU-ANNEX') {
+    node = node.parentNode;
+  }
+  if (!node) return null;
+  return node.getAttribute('id');
+}
+
+function sortByClauseNumber(c1, c2) {
+  var c1c = c1.number.split('.');
+  var c2c = c2.number.split('.');
+
+  for (var i = 0; i < c1c.length; i++) {
+    if (i >= c2c.length) {
+      return 1;
+    }
+
+    var c1 = c1c[i];
+    var c2 = c2c[i];
+    var c1cn = Number(c1);
+    var c2cn = Number(c2);
+
+    if (Number.isNaN(c1cn) && Number.isNaN(c2cn)) {
+      if (c1 > c2) {
+        return 1;
+      } else if (c1 < c2) {
+        return -1;
+      }
+    } else if (!Number.isNaN(c1cn) && Number.isNaN(c2cn)) {
+      return -1;
+    } else if (Number.isNaN(c1cn) && !Number.isNaN(c2cn)) {
+      return 1;
+    } else if(c1cn > c2cn) {
+      return 1;
+    } else if (c1cn < c2cn) {
+      return -1;
+    }
+  }
+
+  if (c1c.length === c2c.length) {
+    return 0;
+  }
+  return -1;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  Toolbox.init();
+  referencePane.init();
+})
+var CLAUSE_NODES = ['EMU-CLAUSE', 'EMU-INTRO', 'EMU-ANNEX'];
+function findLocalReferences ($elem) {
+  var name = $elem.innerHTML;
+  var references = [];
+
+  var parentClause = $elem.parentNode;
+  while (parentClause && CLAUSE_NODES.indexOf(parentClause.nodeName) === -1) {
+    parentClause = parentClause.parentNode;
+  }
+
+  if(!parentClause) return;
+
+  var vars = parentClause.querySelectorAll('var');
+
+  for (var i = 0; i < vars.length; i++) {
+    var $var = vars[i];
+
+    if ($var.innerHTML === name) {
+      references.push($var);
+    }
+  }
+
+  return references;
+}
+
+function toggleFindLocalReferences($elem) {
+  var references = findLocalReferences($elem);
+  if ($elem.classList.contains('referenced')) {
+    references.forEach(function ($reference) {
+      $reference.classList.remove('referenced');
+    });
+  } else {
+    references.forEach(function ($reference) {
+      $reference.classList.add('referenced');
+    });
+  }
+}
+
+function installFindLocalReferences () {
+  document.addEventListener('click', function (e) {
+    if (e.target.nodeName === 'VAR') {
+      toggleFindLocalReferences(e.target);
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', installFindLocalReferences);
+</script><style>body {
+  display: flex;
+  font-size: 18px;
+  line-height: 1.5;
+  font-family: Cambria, Palatino Linotype, Palatino, Liberation Serif, serif;
+  padding: 0;
+  margin: 0;
+  color: #111;
+}
+
+#spec-container {
+  padding: 0 20px;
+  flex-grow: 1;
+  flex-basis: 66%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+body.oldtoc {
+  margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+    color: #206ca7;
+}
+
+a:visited {
+  color: #206ca7;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #239dee;
+}
+
+
+code {
+    font-weight: bold;
+    font-family: Consolas, Monaco, monospace;
+    white-space: pre;
+}
+
+pre code {
+  font-weight: inherit;
+}
+
+pre code.hljs {
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+ol.toc {
+    list-style: none;
+    padding-left: 0;
+}
+
+ol.toc ol.toc {
+    padding-left: 2ex;
+    list-style: none;
+}
+
+var {
+  color: #2aa198;
+  transition: background-color 0.25s ease;
+  cursor: pointer;
+}
+
+var.referenced {
+  background-color: #ffff33;
+}
+
+emu-const {
+  font-family: sans-serif;
+}
+
+emu-val {
+  font-weight: bold;
+}
+
+/* depth 1 */
+emu-alg ol,
+/* depth 4 */
+emu-alg ol ol ol ol,
+emu-alg ol.nested-thrice,
+emu-alg ol.nested-twice ol,
+emu-alg ol.nested-once ol ol {
+  list-style-type: decimal;
+}
+
+/* depth 2 */
+emu-alg ol ol,
+emu-alg ol.nested-once,
+/* depth 5 */
+emu-alg ol ol ol ol ol,
+emu-alg ol.nested-four-times,
+emu-alg ol.nested-thrice ol,
+emu-alg ol.nested-twice ol ol,
+emu-alg ol.nested-once ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+/* depth 3 */
+emu-alg ol ol ol,
+emu-alg ol.nested-twice,
+emu-alg ol.nested-once ol,
+/* depth 6 */
+emu-alg ol ol ol ol ol ol,
+emu-alg ol.nested-lots,
+emu-alg ol.nested-four-times ol,
+emu-alg ol.nested-thrice ol ol,
+emu-alg ol.nested-twice ol ol ol,
+emu-alg ol.nested-once ol ol ol ol,
+/* depth 7+ */
+emu-alg ol.nested-lots ol {
+  list-style-type: lower-roman;
+}
+
+emu-eqn {
+  display: block;
+  margin-left: 4em;
+}
+
+emu-eqn.inline {
+  display: inline;
+  margin: 0;
+}
+
+emu-eqn div:first-child {
+  margin-left: -2em;
+}
+
+emu-note {
+    margin: 1em 0;
+    color: #666;
+    border-left: 5px solid #ccc;
+    display: flex;
+    flex-direction: row;
+}
+
+emu-note > span.note {
+    flex-basis: 100px;
+    min-width: 100px;
+    flex-grow: 0;
+    flex-shrink: 1;
+    text-transform: uppercase;
+    padding-left: 5px;
+}
+
+emu-note[type=editor] {
+  border-left-color: #faa;
+}
+
+emu-note > div.note-contents {
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+emu-note > div.note-contents > p:first-of-type {
+  margin-top: 0;
+}
+
+emu-note > div.note-contents > p:last-of-type {
+  margin-bottom: 0;
+}
+
+emu-table td code {
+  white-space: normal;
+} 
+
+emu-figure {
+  display: block;
+}
+
+emu-example {
+  display: block;
+  margin: 1em 3em;
+}
+
+emu-example figure figcaption {
+  margin-top: 0.5em;
+  text-align: left;
+}
+
+emu-figure figure,
+emu-example figure,
+emu-table figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+emu-production {
+    display: block;
+}
+
+emu-grammar[type="example"] emu-production,
+emu-grammar[type="definition"] emu-production {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 5ex;
+}
+
+emu-grammar.inline, emu-production.inline,
+emu-grammar.inline emu-production emu-rhs, emu-production.inline emu-rhs,
+emu-grammar[collapsed] emu-production emu-rhs, emu-production[collapsed] emu-rhs {
+    display: inline;
+    padding-left: 1ex;
+    margin-left: 0;
+}
+
+emu-grammar[collapsed] emu-production, emu-production[collapsed] {
+    margin: 0;
+}
+
+emu-constraints {
+    font-size: .75em;
+    margin-right: 1ex;
+}
+
+emu-gann {
+    margin-right: 1ex;
+}
+
+emu-gann emu-t:last-child,
+emu-gann emu-gprose:last-child,
+emu-gann emu-nt:last-child {
+    margin-right: 0;
+}
+
+emu-geq {
+    margin-left: 1ex;
+    font-weight: bold;
+}
+
+emu-oneof {
+    font-weight: bold;
+    margin-left: 1ex;
+}
+
+emu-nt {
+    display: inline-block;
+    font-style: italic;
+    white-space: nowrap;
+    text-indent: 0;
+}
+
+emu-nt a, emu-nt a:visited {
+  color: #333;
+}
+
+emu-rhs emu-nt {
+    margin-right: 1ex;
+}
+
+emu-t {
+    display: inline-block;
+    font-family: monospace;
+    font-weight: bold;
+    white-space: nowrap;
+    text-indent: 0;
+}
+
+emu-production emu-t {
+    margin-right: 1ex;
+}
+
+emu-rhs {
+    display: block;
+    padding-left: 75px;
+    text-indent: -25px;
+}
+
+emu-mods {
+    font-size: .85em;
+    vertical-align: sub;
+    font-style: normal;
+    font-weight: normal;
+}
+
+emu-params, emu-opt {
+  margin-right: 1ex;
+  font-family: monospace;
+}
+
+emu-params, emu-constraints {
+  color: #2aa198;
+}
+
+emu-opt {
+  color: #b58900;
+}
+
+emu-gprose {
+    font-size: 0.9em;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+emu-production emu-gprose {
+    margin-right: 1ex;
+}
+
+h1.shortname {
+  color: #f60;
+  font-size: 1.5em;
+  margin: 0;
+}
+
+h1.version {
+  color: #f60;
+  font-size: 1.5em;
+  margin: 0;
+}
+
+h1.title {
+  margin-top: 0;
+  color: #f60;
+}
+
+h1.first {
+  margin-top: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    position: relative;
+}
+
+h1 .secnum {
+  text-decoration: none;
+  margin-right: 5px;
+}
+
+h1 span.title {
+  order: 2;
+}
+
+
+h1 { font-size: 2.67em; margin-top: 2em; margin-bottom: 0; line-height: 1em;}
+h2 { font-size: 2em; }
+h3 { font-size: 1.56em; }
+h4 { font-size: 1.25em; }
+h5 { font-size: 1.11em; }
+h6 { font-size: 1em; }
+
+h1:hover span.utils {
+  display: block;
+}
+
+span.utils {
+  font-size: 18px;
+  line-height: 18px;
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  font-weight: normal;
+}
+
+span.utils:before {
+    content: "⤷";
+    display: inline-block;
+    padding: 0 5px;
+}
+
+span.utils > * {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+h1 span.utils span.anchor a,
+h2 span.utils span.anchor a,
+h3 span.utils span.anchor a,
+h4 span.utils span.anchor a,
+h5 span.utils span.anchor a,
+h6 span.utils span.anchor a {
+  text-decoration: none;
+  font-variant: small-caps;
+}
+
+h1 span.utils span.anchor a:hover,
+h2 span.utils span.anchor a:hover,
+h3 span.utils span.anchor a:hover,
+h4 span.utils span.anchor a:hover,
+h5 span.utils span.anchor a:hover,
+h6 span.utils span.anchor a:hover {
+  color: #333;
+}
+
+emu-intro h1, emu-clause h1, emu-annex h1 { font-size: 2em; }
+emu-intro h2, emu-clause h2, emu-annex h2 { font-size: 1.56em; }
+emu-intro h3, emu-clause h3, emu-annex h3 { font-size: 1.25em; }
+emu-intro h4, emu-clause h4, emu-annex h4 { font-size: 1.11em; }
+emu-intro h5, emu-clause h5, emu-annex h5 { font-size: 1em; }
+emu-intro h6, emu-clause h6, emu-annex h6 { font-size: 0.9em; }
+emu-intro emu-intro h1, emu-clause emu-clause h1, emu-annex emu-annex h1 { font-size: 1.56em; }
+emu-intro emu-intro h2, emu-clause emu-clause h2, emu-annex emu-annex h2 { font-size: 1.25em; }
+emu-intro emu-intro h3, emu-clause emu-clause h3, emu-annex emu-annex h3 { font-size: 1.11em; }
+emu-intro emu-intro h4, emu-clause emu-clause h4, emu-annex emu-annex h4 { font-size: 1em; }
+emu-intro emu-intro h5, emu-clause emu-clause h5, emu-annex emu-annex h5 { font-size: 0.9em; }
+emu-intro emu-intro emu-intro h1, emu-clause emu-clause emu-clause h1, emu-annex emu-annex emu-annex h1 { font-size: 1.25em; }
+emu-intro emu-intro emu-intro h2, emu-clause emu-clause emu-clause h2, emu-annex emu-annex emu-annex h2 { font-size: 1.11em; }
+emu-intro emu-intro emu-intro h3, emu-clause emu-clause emu-clause h3, emu-annex emu-annex emu-annex h3 { font-size: 1em; }
+emu-intro emu-intro emu-intro h4, emu-clause emu-clause emu-clause h4, emu-annex emu-annex emu-annex h4 { font-size: 0.9em; }
+emu-intro emu-intro emu-intro emu-intro h1, emu-clause emu-clause emu-clause emu-clause h1, emu-annex emu-annex emu-annex emu-annex h1 { font-size: 1.11em; }
+emu-intro emu-intro emu-intro emu-intro h2, emu-clause emu-clause emu-clause emu-clause h2, emu-annex emu-annex emu-annex emu-annex h2 { font-size: 1em; }
+emu-intro emu-intro emu-intro emu-intro h3, emu-clause emu-clause emu-clause emu-clause h3, emu-annex emu-annex emu-annex emu-annex h3 { font-size: 0.9em; }
+emu-intro emu-intro emu-intro emu-intro emu-intro h1, emu-clause emu-clause emu-clause emu-clause emu-clause h1, emu-annex emu-annex emu-annex emu-annex emu-annex h1 { font-size: 1em; }
+emu-intro emu-intro emu-intro emu-intro emu-intro h2, emu-clause emu-clause emu-clause emu-clause emu-clause h2, emu-annex emu-annex emu-annex emu-annex emu-annex h2 { font-size: 0.9em; }
+emu-intro emu-intro emu-intro emu-intro emu-intro emu-intro h1, emu-clause emu-clause emu-clause emu-clause emu-clause emu-clause h1, emu-annex emu-annex emu-annex emu-annex emu-annex emu-annex h1 { font-size: 0.9em }
+
+emu-clause, emu-intro, emu-annex {
+    display: block;
+}
+
+/* Figures and tables */
+figure { display: block; margin: 1em 0 3em 0; }
+figure object { display: block; margin: 0 auto; }
+figure table.real-table { margin: 0 auto; }
+figure figcaption {
+    display: block;
+    color: #555555;
+    font-weight: bold;
+    text-align: center;
+}
+
+emu-table table {
+  margin: 0 auto;
+}
+
+emu-table table, table.real-table {
+    border-collapse: collapse;
+}
+
+emu-table td, emu-table th, table.real-table td, table.real-table th {
+    border: 1px solid black;
+    padding: 0.4em;
+    vertical-align: baseline;
+}
+emu-table th, emu-table thead td, table.real-table th {
+    background-color: #eeeeee;
+}
+
+/* Note: the left content edges of table.lightweight-table >tbody >tr >td
+   and div.display line up. */
+table.lightweight-table {
+    border-collapse: collapse;
+    margin: 0 0 0 1.5em;
+}
+table.lightweight-table td, table.lightweight-table th {
+    border: none;
+    padding: 0 0.5em;
+    vertical-align: baseline;
+}
+
+/* diff styles */
+ins {
+    background-color: #e0f8e0;
+    text-decoration: none;
+    border-bottom: 1px solid #396;
+}
+
+del {
+    background-color: #fee;
+}
+
+ins.block, del.block,
+emu-production > ins, emu-production > del,
+emu-grammar > ins, emu-grammar > del {
+  display: block;
+}
+emu-rhs > ins, emu-rhs > del { 
+  display: inline;
+}
+
+tr.ins > td > ins {
+  border-bottom: none;
+}
+
+tr.ins > td {
+  background-color: #e0f8e0;
+}
+
+tr.del > td {
+  background-color: #fee;
+}
+
+/* Menu Styles */
+#menu-toggle {
+  font-size: 2em;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 1.5em;
+  height: 1.5em;
+  z-index: 3;
+  visibility: hidden;
+  color: #1567a2;
+  background-color: #fff;
+
+  line-height: 1.5em;
+  text-align: center;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;;
+
+  cursor: pointer;
+}
+
+#menu {
+  display: flex;
+  flex-direction: column;
+  width: 33%; height: 100vh;
+  max-width: 500px;
+  box-sizing: border-box;
+  background-color: #ddd;
+  overflow: hidden;
+  transition: opacity 0.1s linear;
+  padding: 0 5px;
+  position: fixed;
+  left: 0; top: 0;
+  border-right: 2px solid #bbb;
+
+  z-index: 2;
+}
+
+#menu-spacer {
+  flex-basis: 33%;
+  max-width: 500px;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+#menu a {
+  color: #1567a2;
+}
+
+#menu.active {
+  display: flex;
+  opacity: 1;
+  z-index: 2;
+}
+
+#menu-pins {
+  flex-grow: 1;
+  display: none;
+}
+
+#menu-pins.active {
+  display: block;
+}
+
+#menu-pins-list {
+  margin: 0;
+  padding: 0;
+  counter-reset: pins-counter;
+}
+
+#menu-pins-list > li:before {
+  content: counter(pins-counter);
+  counter-increment: pins-counter;
+  display: inline-block;
+  width: 25px;
+  text-align: center;
+  border: 1px solid #bbb;
+  padding: 2px;
+  margin: 4px;
+  box-sizing: border-box;
+  line-height: 1em;
+  background-color: #ccc;
+  border-radius: 4px;
+}
+#menu-toc > ol {
+  padding: 0;
+  flex-grow: 1;
+}
+
+#menu-toc > ol li {
+  padding: 0;
+}
+
+#menu-toc > ol , #menu-toc > ol ol {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#menu-toc > ol ol {
+  padding-left: 0.75em;
+}
+
+#menu-toc li {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+#menu-toc .item-toggle {
+  display: inline-block;
+  transform: rotate(-45deg) translate(-5px, -5px);
+  transition: transform 0.1s ease;
+  text-align: center;
+  width: 20px;
+
+  color: #aab;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;;
+
+  cursor: pointer;
+}
+
+#menu-toc .item-toggle-none {
+  display: inline-block;
+  width: 20px;
+}
+
+#menu-toc li.active > .item-toggle {
+  transform: rotate(45deg) translate(-5px, -5px);
+}
+
+#menu-toc li > ol {
+  display: none;
+}
+
+#menu-toc li.active > ol {
+  display: block;
+}
+
+#menu-toc li.revealed > a {
+  background-color: #bbb;
+  font-weight: bold;
+  /*
+  background-color: #222;
+  color: #c6d8e4;
+  */
+}
+
+#menu-toc li.revealed-leaf> a {
+  color: #206ca7;
+  /*
+  background-color: #222;
+  color: #c6d8e4;
+  */
+}
+
+#menu-toc li.revealed > .item-toggle {
+  transform: rotate(45deg) translate(-5px, -5px);
+}
+
+#menu-toc li.revealed > ol {
+  display: block;
+}
+
+#menu-toc li > a {
+  padding: 2px 5px;
+}
+
+#menu > * {
+  margin-bottom: 5px;
+}
+
+.menu-pane-header {
+  padding: 0 5px;
+  text-transform: uppercase;
+  background-color: #aaa;
+  color: #335;
+  font-weight: bold;
+  letter-spacing: 2px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  font-size: 0.8em;
+}
+
+#menu-toc {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+  flex-grow: 1;
+}
+
+#menu-toc ol.toc {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#menu-search {
+  position: relative;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 100%;
+  
+  display: flex;
+  flex-direction: column;
+  
+  max-height: 300px;
+}
+
+#menu-trace-list {
+  display: none;
+}
+
+#menu-search-box {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  margin: 5px 0 0 0;
+  font-size: 1em;
+  padding: 2px;
+  background-color: #bbb;
+  border: 1px solid #999;
+}
+
+#menu-search-results {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+li.menu-search-result-clause:before {
+    content: 'clause';
+    width: 40px;
+    display: inline-block;
+    text-align: right;
+    padding-right: 1ex;
+    color: #666;
+    font-size: 75%;
+}
+li.menu-search-result-op:before {
+    content: 'op';
+    width: 40px;
+    display: inline-block;
+    text-align: right;
+    padding-right: 1ex;
+    color: #666;
+    font-size: 75%;
+}
+
+li.menu-search-result-prod:before {
+    content: 'prod';
+    width: 40px;
+    display: inline-block;
+    text-align: right;
+    padding-right: 1ex;
+    color: #666;
+    font-size: 75%
+}
+
+
+li.menu-search-result-term:before {
+    content: 'term';
+    width: 40px;
+    display: inline-block;
+    text-align: right;
+    padding-right: 1ex;
+    color: #666;
+    font-size: 75%
+}
+
+#menu-search-results ul {
+  padding: 0 5px;
+  margin: 0;
+}
+
+#menu-search-results li {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+#menu-trace-list {
+  counter-reset: item;
+  margin: 0 0 0 20px;
+  padding: 0;
+}
+#menu-trace-list li {
+  display: block;
+  white-space: nowrap;
+}
+
+#menu-trace-list li .secnum:after {
+  content: " ";
+}
+#menu-trace-list li:before {
+    content: counter(item) " ";
+    background-color: #222;
+    counter-increment: item;
+    color: #999;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    display: inline-block;
+    text-align: center;
+    margin: 2px 4px 2px 0;
+}
+
+@media (max-width: 1000px) {
+  body {
+    margin: 0;
+    display: block;
+  }
+
+  #menu {
+    display: none;
+    padding-top: 3em;
+    width: 450px;
+  }
+
+  #menu.active {
+    position: fixed;
+    height: 100%;
+    left: 0;
+    top: 0;
+    right: 300px;
+  }
+
+  #menu-toggle {
+    visibility: visible;
+  }
+
+  #spec-container {
+    padding: 0 5px;
+  }
+
+  #references-pane-spacer {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  #menu {
+    width: 100%;
+  }
+
+  h1 .secnum:empty {
+    margin: 0; padding: 0;
+  }
+}
+
+
+/* Toolbox */
+.toolbox {
+	position: absolute;
+	background: #ddd;
+	border: 1px solid #aaa;
+  display: none;
+  color: #eee;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.toolbox.active {
+  display: inline-block;
+}
+
+.toolbox a {
+  text-decoration: none;
+  padding: 0 5px;
+}
+
+.toolbox a:hover {
+  text-decoration: underline;
+}
+
+.toolbox:after, .toolbox:before {
+	top: 100%;
+	left: 15px;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.toolbox:after {
+	border-color: rgba(0, 0, 0, 0);
+	border-top-color: #ddd;
+	border-width: 10px;
+	margin-left: -10px;
+}
+.toolbox:before {
+	border-color: rgba(204, 204, 204, 0);
+	border-top-color: #aaa;
+	border-width: 12px;
+	margin-left: -12px;
+}
+
+#references-pane-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 250px;
+  display: none;
+  background-color: #ddd;
+  z-index: 1;
+}
+
+#references-pane-table-container {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#references-pane-spacer {
+  flex-basis: 33%;
+  max-width: 500px;
+}
+
+#references-pane {
+  flex-grow: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+#references-pane-container.active {
+  display: flex;
+}
+
+#references-pane-close:after {
+  content: '✖';
+  float: right;
+  cursor: pointer;
+}
+
+#references-pane table tr td:first-child {
+  text-align: right;
+  padding-right: 5px;
+}
+
+@media print {
+  #menu-toggle {
+    display: none; 
+  }
+}
+</style></head><body><div id="menu-toggle">☰</div><div id="menu-spacer"></div><div id="menu"><div id="menu-search"><input type="text" id="menu-search-box" placeholder="Search..."><div id="menu-search-results" class="inactive"></div></div><div id="menu-pins"><div class="menu-pane-header">Pins</div><ul id="menu-pins-list"></ul></div><div class="menu-pane-header">Table of Contents</div><div id="menu-toc"><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-intro" title="Introduction">Introduction</a></li><li><span class="item-toggle">◢</span><a href="#sec-text-processing" title="Text Processing"><span class="secnum">1</span> Text Processing</a><ol class="toc"><li><span class="item-toggle">◢</span><a href="#sec-regexp-regular-expression-objects" title="RegExp (Regular Expression) Objects"><span class="secnum">1.1</span> RegExp (Regular Expression) Objects</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-patterns" title="Patterns"><span class="secnum">1.1.1</span> Patterns</a></li><li><span class="item-toggle">◢</span><a href="#sec-pattern-semantics" title="Pattern Semantics"><span class="secnum">1.1.2</span> Pattern Semantics</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-compileassertion" title="
+          Runtime Semantics: CompileAssertion
+        "><span class="secnum">1.1.2.1</span> 
+          RS: CompileAssertion
+        </a></li></ol></li></ol></li></ol></li><li><span class="item-toggle">◢</span><a href="#sec-additional-ecmascript-features-for-web-browsers" title="Additional ECMAScript Features for Web Browsers"><span class="secnum">A</span> Additional ECMAScript Features for Web Browsers</a><ol class="toc"><li><span class="item-toggle">◢</span><a href="#sec-additional-syntax" title="Additional Syntax"><span class="secnum">A.1</span> Additional Syntax</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-regular-expressions-patterns" title="Regular Expressions Patterns"><span class="secnum">A.1.1</span> Regular Expressions Patterns</a></li></ol></li></ol></li><li><span class="item-toggle-none"></span><a href="#sec-copyright-and-software-license" title="Copyright &amp; Software License"><span class="secnum">B</span> Copyright &amp; Software License</a></li></ol></div></div><div id="spec-container"><h1 class="version first">Stage 2 Draft / May 26, 2022</h1><h1 class="title">Regular Expression Buffer Boundaries for ECMAScript</h1>
+
+<emu-intro id="sec-intro">
+  <h1>Introduction</h1>
+  <p>Forthcoming</p>
+  <p>See <a href="https://github.com/tc39/proposal-regexp-buffer-boundaries#readme">the proposal repository</a> for background material and discussion.</p>
+</emu-intro>
+
+<emu-clause id="sec-text-processing">
+  <h1><span class="secnum">1</span> Text Processing</h1>
+
+  <emu-clause id="sec-regexp-regular-expression-objects">
+    <h1><span class="secnum">1.1</span> RegExp (Regular Expression) Objects</h1>
+    <p>A RegExp object contains a regular expression and the associated flags.</p>
+    <emu-note><span class="note">Note</span><div class="note-contents">
+      <p>The form and functionality of regular expressions is modelled after the regular expression facility in the Perl 5 programming language.</p>
+    </div></emu-note>
+
+    <emu-clause id="sec-patterns">
+      <h1><span class="secnum">1.1.1</span> Patterns</h1>
+      <p>The RegExp <emu-xref href="#constructor"><a href="https://tc39.es/ecma262/#constructor">constructor</a></emu-xref> applies the following grammar to the input pattern String. An error occurs if the grammar cannot interpret the String as an expansion of <emu-nt id="_ref_2"><a href="#prod-Pattern">Pattern</a></emu-nt>.</p>
+      <h2>Syntax</h2>
+      <emu-grammar type="definition"><emu-production name="Pattern" params="UnicodeMode, N" type="lexical" id="prod-Pattern">
+    <emu-nt params="UnicodeMode, N"><a href="#prod-Pattern">Pattern</a><emu-mods><emu-params>[UnicodeMode, N]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="33b5b544"><emu-nt params="?UnicodeMode, ?N" id="_ref_3"><a href="#prod-Disjunction">Disjunction</a><emu-mods><emu-params>[?UnicodeMode, ?N]</emu-params></emu-mods></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="Disjunction" params="UnicodeMode, N" type="lexical" id="prod-Disjunction">
+    <emu-nt params="UnicodeMode, N"><a href="#prod-Disjunction">Disjunction</a><emu-mods><emu-params>[UnicodeMode, N]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="8ae02035"><emu-nt params="?UnicodeMode, ?N" id="_ref_4"><a href="#prod-Alternative">Alternative</a><emu-mods><emu-params>[?UnicodeMode, ?N]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="b7cdaa00"><emu-nt params="?UnicodeMode, ?N" id="_ref_5"><a href="#prod-Alternative">Alternative</a><emu-mods><emu-params>[?UnicodeMode, ?N]</emu-params></emu-mods></emu-nt><emu-t>|</emu-t><emu-nt params="?UnicodeMode, ?N" id="_ref_6"><a href="#prod-Disjunction">Disjunction</a><emu-mods><emu-params>[?UnicodeMode, ?N]</emu-params></emu-mods></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="Alternative" params="UnicodeMode, N" type="lexical" id="prod-Alternative">
+    <emu-nt params="UnicodeMode, N"><a href="#prod-Alternative">Alternative</a><emu-mods><emu-params>[UnicodeMode, N]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="37b9c04c"><emu-gann>[empty]</emu-gann></emu-rhs>
+    <emu-rhs a="6e5d7b0c"><emu-nt params="?UnicodeMode, ?N" id="_ref_7"><a href="#prod-Alternative">Alternative</a><emu-mods><emu-params>[?UnicodeMode, ?N]</emu-params></emu-mods></emu-nt><emu-nt params="?UnicodeMode, ?N" id="_ref_8"><a href="#prod-Term">Term</a><emu-mods><emu-params>[?UnicodeMode, ?N]</emu-params></emu-mods></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="Term" params="UnicodeMode, N" type="lexical" id="prod-Term">
+    <emu-nt params="UnicodeMode, N"><a href="#prod-Term">Term</a><emu-mods><emu-params>[UnicodeMode, N]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="62cb8b1a"><emu-nt params="?UnicodeMode, ?N" id="_ref_9"><a href="#prod-Assertion">Assertion</a><emu-mods><emu-params>[?UnicodeMode, ?N]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="748d4039"><emu-nt params="?UnicodeMode, ?N" id="_ref_10"><a href="#prod-Atom">Atom</a><emu-mods><emu-params>[?UnicodeMode, ?N]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="dd7f4735"><emu-nt params="?UnicodeMode, ?N" id="_ref_11"><a href="#prod-Atom">Atom</a><emu-mods><emu-params>[?UnicodeMode, ?N]</emu-params></emu-mods></emu-nt><emu-nt id="_ref_12"><a href="#prod-Quantifier">Quantifier</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="Assertion" params="UnicodeMode, N" type="lexical" id="prod-Assertion">
+    <emu-nt params="UnicodeMode, N"><a href="#prod-Assertion">Assertion</a><emu-mods><emu-params>[UnicodeMode, N]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="e5878811"><emu-t>^</emu-t></emu-rhs>
+    <emu-rhs a="1262cc92"><emu-t>$</emu-t></emu-rhs>
+    <ins><emu-rhs a="45bceed4"><emu-t>\</emu-t><emu-t>A</emu-t></emu-rhs></ins>
+    <ins><emu-rhs a="3f75e477"><emu-t>\</emu-t><emu-t>z</emu-t></emu-rhs></ins>
+    <emu-rhs a="1e228da5"><emu-t>\</emu-t><emu-t>b</emu-t></emu-rhs>
+    <emu-rhs a="a5dc97fa"><emu-t>\</emu-t><emu-t>B</emu-t></emu-rhs>
+    <emu-rhs a="a9721f06"><emu-t>(</emu-t><emu-t>?</emu-t><emu-t>=</emu-t><emu-nt params="?UnicodeMode, ?N" id="_ref_13"><a href="#prod-Disjunction">Disjunction</a><emu-mods><emu-params>[?UnicodeMode, ?N]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t></emu-rhs>
+    <emu-rhs a="21e03583"><emu-t>(</emu-t><emu-t>?</emu-t><emu-t>!</emu-t><emu-nt params="?UnicodeMode, ?N" id="_ref_14"><a href="#prod-Disjunction">Disjunction</a><emu-mods><emu-params>[?UnicodeMode, ?N]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t></emu-rhs>
+    <emu-rhs a="c04d0f14"><emu-t>(</emu-t><emu-t>?</emu-t><emu-t>&lt;=</emu-t><emu-nt params="?UnicodeMode, ?N" id="_ref_15"><a href="#prod-Disjunction">Disjunction</a><emu-mods><emu-params>[?UnicodeMode, ?N]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t></emu-rhs>
+    <emu-rhs a="b317fc0a"><emu-t>(</emu-t><emu-t>?</emu-t><emu-t>&lt;!</emu-t><emu-nt params="?UnicodeMode, ?N" id="_ref_16"><a href="#prod-Disjunction">Disjunction</a><emu-mods><emu-params>[?UnicodeMode, ?N]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="Quantifier" type="lexical" id="prod-Quantifier">
+    <emu-nt><a href="#prod-Quantifier">Quantifier</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="0e588d23"><emu-nt id="_ref_17"><a href="#prod-QuantifierPrefix">QuantifierPrefix</a></emu-nt></emu-rhs>
+    <emu-rhs a="0b0b5479"><emu-nt id="_ref_18"><a href="#prod-QuantifierPrefix">QuantifierPrefix</a></emu-nt><emu-t>?</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="QuantifierPrefix" type="lexical" id="prod-QuantifierPrefix">
+    <emu-nt><a href="#prod-QuantifierPrefix">QuantifierPrefix</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="b01e734d"><emu-t>*</emu-t></emu-rhs>
+    <emu-rhs a="e0370b05"><emu-t>+</emu-t></emu-rhs>
+    <emu-rhs a="232d7160"><emu-t>?</emu-t></emu-rhs>
+    <emu-rhs a="a8dda26e"><emu-t>{</emu-t><emu-nt params="~Sep"><a href="https://tc39.es/ecma262/#prod-grammar-notation-DecimalDigits">DecimalDigits</a><emu-mods><emu-params>[~Sep]</emu-params></emu-mods></emu-nt><emu-t>}</emu-t></emu-rhs>
+    <emu-rhs a="15684d0d"><emu-t>{</emu-t><emu-nt params="~Sep"><a href="https://tc39.es/ecma262/#prod-grammar-notation-DecimalDigits">DecimalDigits</a><emu-mods><emu-params>[~Sep]</emu-params></emu-mods></emu-nt><emu-t>,</emu-t><emu-t>}</emu-t></emu-rhs>
+    <emu-rhs a="6d31c523"><emu-t>{</emu-t><emu-nt params="~Sep"><a href="https://tc39.es/ecma262/#prod-grammar-notation-DecimalDigits">DecimalDigits</a><emu-mods><emu-params>[~Sep]</emu-params></emu-mods></emu-nt><emu-t>,</emu-t><emu-nt params="~Sep"><a href="https://tc39.es/ecma262/#prod-grammar-notation-DecimalDigits">DecimalDigits</a><emu-mods><emu-params>[~Sep]</emu-params></emu-mods></emu-nt><emu-t>}</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="Atom" params="UnicodeMode, N" type="lexical" id="prod-Atom">
+    <emu-nt params="UnicodeMode, N"><a href="#prod-Atom">Atom</a><emu-mods><emu-params>[UnicodeMode, N]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="beff52c4"><emu-nt id="_ref_19"><a href="#prod-PatternCharacter">PatternCharacter</a></emu-nt></emu-rhs>
+    <emu-rhs a="9658e473"><emu-t>.</emu-t></emu-rhs>
+    <emu-rhs a="25d428f6"><emu-t>\</emu-t><emu-nt params="?UnicodeMode, ?N" id="_ref_20"><a href="#prod-AtomEscape">AtomEscape</a><emu-mods><emu-params>[?UnicodeMode, ?N]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="593cedd9"><emu-nt params="?UnicodeMode" id="_ref_21"><a href="#prod-CharacterClass">CharacterClass</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="4a712b72"><emu-t>(</emu-t><emu-nt params="?UnicodeMode" id="_ref_22"><a href="#prod-GroupSpecifier">GroupSpecifier</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt><emu-nt params="?UnicodeMode, ?N" id="_ref_23"><a href="#prod-Disjunction">Disjunction</a><emu-mods><emu-params>[?UnicodeMode, ?N]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t></emu-rhs>
+    <emu-rhs a="adb99288"><emu-t>(</emu-t><emu-t>?</emu-t><emu-t>:</emu-t><emu-nt params="?UnicodeMode, ?N" id="_ref_24"><a href="#prod-Disjunction">Disjunction</a><emu-mods><emu-params>[?UnicodeMode, ?N]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="SyntaxCharacter" type="lexical" oneof="" id="prod-SyntaxCharacter">
+    <emu-nt><a href="#prod-SyntaxCharacter">SyntaxCharacter</a></emu-nt><emu-geq>::</emu-geq><emu-oneof>one of</emu-oneof><emu-rhs><emu-t>^</emu-t><emu-t>$</emu-t><emu-t>\</emu-t><emu-t>.</emu-t><emu-t>*</emu-t><emu-t>+</emu-t><emu-t>?</emu-t><emu-t>(</emu-t><emu-t>)</emu-t><emu-t>[</emu-t><emu-t>]</emu-t><emu-t>{</emu-t><emu-t>}</emu-t><emu-t>|</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="PatternCharacter" type="lexical" id="prod-PatternCharacter">
+    <emu-nt><a href="#prod-PatternCharacter">PatternCharacter</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="b94d4da1"><emu-nt><a href="https://tc39.es/ecma262/#prod-grammar-notation-SourceCharacter">SourceCharacter</a></emu-nt><emu-gmod>but not <emu-nt id="_ref_25"><a href="#prod-SyntaxCharacter">SyntaxCharacter</a></emu-nt></emu-gmod></emu-rhs>
+</emu-production>
+<emu-production name="AtomEscape" params="UnicodeMode, N" type="lexical" id="prod-AtomEscape">
+    <emu-nt params="UnicodeMode, N"><a href="#prod-AtomEscape">AtomEscape</a><emu-mods><emu-params>[UnicodeMode, N]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="7ebff96c"><emu-nt id="_ref_26"><a href="#prod-DecimalEscape">DecimalEscape</a></emu-nt></emu-rhs>
+    <emu-rhs a="d5d2e723"><emu-nt params="?UnicodeMode" id="_ref_27"><a href="#prod-CharacterClassEscape">CharacterClassEscape</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="8b809e79"><emu-nt params="?UnicodeMode" id="_ref_28"><a href="#prod-CharacterEscape">CharacterEscape</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="e7d61952" constraints="+N"><emu-constraints>[+N]</emu-constraints><emu-t>k</emu-t><emu-nt params="?UnicodeMode" id="_ref_29"><a href="#prod-GroupName">GroupName</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="CharacterEscape" params="UnicodeMode" type="lexical" id="prod-CharacterEscape">
+    <emu-nt params="UnicodeMode"><a href="#prod-CharacterEscape">CharacterEscape</a><emu-mods><emu-params>[UnicodeMode]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="f88e7170"><emu-nt id="_ref_30"><a href="#prod-ControlEscape">ControlEscape</a></emu-nt></emu-rhs>
+    <emu-rhs a="a14dae7e"><emu-t>c</emu-t><emu-nt id="_ref_31"><a href="#prod-ControlLetter">ControlLetter</a></emu-nt></emu-rhs>
+    <emu-rhs a="6ebd9df7"><emu-t>0</emu-t><emu-gann>[lookahead ∉ <emu-nt><a href="https://tc39.es/ecma262/#prod-grammar-notation-DecimalDigit">DecimalDigit</a></emu-nt>]</emu-gann></emu-rhs>
+    <emu-rhs a="a8071b85"><emu-nt><a href="https://tc39.es/ecma262/#prod-HexEscapeSequence">HexEscapeSequence</a></emu-nt></emu-rhs>
+    <emu-rhs a="b300ac7b"><emu-nt params="?UnicodeMode" id="_ref_32"><a href="#prod-RegExpUnicodeEscapeSequence">RegExpUnicodeEscapeSequence</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="ebfa4a8d"><emu-nt params="?UnicodeMode" id="_ref_33"><a href="#prod-IdentityEscape">IdentityEscape</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="ControlEscape" type="lexical" oneof="" id="prod-ControlEscape">
+    <emu-nt><a href="#prod-ControlEscape">ControlEscape</a></emu-nt><emu-geq>::</emu-geq><emu-oneof>one of</emu-oneof><emu-rhs><emu-t>f</emu-t><emu-t>n</emu-t><emu-t>r</emu-t><emu-t>t</emu-t><emu-t>v</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="ControlLetter" type="lexical" oneof="" id="prod-ControlLetter">
+    <emu-nt><a href="#prod-ControlLetter">ControlLetter</a></emu-nt><emu-geq>::</emu-geq><emu-oneof>one of</emu-oneof><emu-rhs><emu-t>a</emu-t><emu-t>b</emu-t><emu-t>c</emu-t><emu-t>d</emu-t><emu-t>e</emu-t><emu-t>f</emu-t><emu-t>g</emu-t><emu-t>h</emu-t><emu-t>i</emu-t><emu-t>j</emu-t><emu-t>k</emu-t><emu-t>l</emu-t><emu-t>m</emu-t><emu-t>n</emu-t><emu-t>o</emu-t><emu-t>p</emu-t><emu-t>q</emu-t><emu-t>r</emu-t><emu-t>s</emu-t><emu-t>t</emu-t><emu-t>u</emu-t><emu-t>v</emu-t><emu-t>w</emu-t><emu-t>x</emu-t><emu-t>y</emu-t><emu-t>z</emu-t><emu-t>A</emu-t><emu-t>B</emu-t><emu-t>C</emu-t><emu-t>D</emu-t><emu-t>E</emu-t><emu-t>F</emu-t><emu-t>G</emu-t><emu-t>H</emu-t><emu-t>I</emu-t><emu-t>J</emu-t><emu-t>K</emu-t><emu-t>L</emu-t><emu-t>M</emu-t><emu-t>N</emu-t><emu-t>O</emu-t><emu-t>P</emu-t><emu-t>Q</emu-t><emu-t>R</emu-t><emu-t>S</emu-t><emu-t>T</emu-t><emu-t>U</emu-t><emu-t>V</emu-t><emu-t>W</emu-t><emu-t>X</emu-t><emu-t>Y</emu-t><emu-t>Z</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="GroupSpecifier" params="UnicodeMode" type="lexical" id="prod-GroupSpecifier">
+    <emu-nt params="UnicodeMode"><a href="#prod-GroupSpecifier">GroupSpecifier</a><emu-mods><emu-params>[UnicodeMode]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="37b9c04c"><emu-gann>[empty]</emu-gann></emu-rhs>
+    <emu-rhs a="527cb3fe"><emu-t>?</emu-t><emu-nt params="?UnicodeMode" id="_ref_34"><a href="#prod-GroupName">GroupName</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="GroupName" params="UnicodeMode" type="lexical" id="prod-GroupName">
+    <emu-nt params="UnicodeMode"><a href="#prod-GroupName">GroupName</a><emu-mods><emu-params>[UnicodeMode]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="05b57100"><emu-t>&lt;</emu-t><emu-nt params="?UnicodeMode" id="_ref_35"><a href="#prod-RegExpIdentifierName">RegExpIdentifierName</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt><emu-t>&gt;</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="RegExpIdentifierName" params="UnicodeMode" type="lexical" id="prod-RegExpIdentifierName">
+    <emu-nt params="UnicodeMode"><a href="#prod-RegExpIdentifierName">RegExpIdentifierName</a><emu-mods><emu-params>[UnicodeMode]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="78f8eda0"><emu-nt params="?UnicodeMode" id="_ref_36"><a href="#prod-RegExpIdentifierStart">RegExpIdentifierStart</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="e6e25dc5"><emu-nt params="?UnicodeMode" id="_ref_37"><a href="#prod-RegExpIdentifierName">RegExpIdentifierName</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt><emu-nt params="?UnicodeMode" id="_ref_38"><a href="#prod-RegExpIdentifierPart">RegExpIdentifierPart</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="RegExpIdentifierStart" params="UnicodeMode" type="lexical" id="prod-RegExpIdentifierStart">
+    <emu-nt params="UnicodeMode"><a href="#prod-RegExpIdentifierStart">RegExpIdentifierStart</a><emu-mods><emu-params>[UnicodeMode]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="b02259c3"><emu-nt>IdentifierStartChar</emu-nt></emu-rhs>
+    <emu-rhs a="1ced10c6"><emu-t>\</emu-t><emu-nt params="+UnicodeMode" id="_ref_39"><a href="#prod-RegExpUnicodeEscapeSequence">RegExpUnicodeEscapeSequence</a><emu-mods><emu-params>[+UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="7e937e1f" constraints="~UnicodeMode"><emu-constraints>[~UnicodeMode]</emu-constraints><emu-nt id="_ref_40"><a href="#prod-UnicodeLeadSurrogate">UnicodeLeadSurrogate</a></emu-nt><emu-nt id="_ref_41"><a href="#prod-UnicodeTrailSurrogate">UnicodeTrailSurrogate</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="RegExpIdentifierPart" params="UnicodeMode" type="lexical" id="prod-RegExpIdentifierPart">
+    <emu-nt params="UnicodeMode"><a href="#prod-RegExpIdentifierPart">RegExpIdentifierPart</a><emu-mods><emu-params>[UnicodeMode]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="4371c397"><emu-nt>IdentifierPartChar</emu-nt></emu-rhs>
+    <emu-rhs a="1ced10c6"><emu-t>\</emu-t><emu-nt params="+UnicodeMode" id="_ref_42"><a href="#prod-RegExpUnicodeEscapeSequence">RegExpUnicodeEscapeSequence</a><emu-mods><emu-params>[+UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="7e937e1f" constraints="~UnicodeMode"><emu-constraints>[~UnicodeMode]</emu-constraints><emu-nt id="_ref_43"><a href="#prod-UnicodeLeadSurrogate">UnicodeLeadSurrogate</a></emu-nt><emu-nt id="_ref_44"><a href="#prod-UnicodeTrailSurrogate">UnicodeTrailSurrogate</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="RegExpUnicodeEscapeSequence" params="UnicodeMode" type="lexical" id="prod-RegExpUnicodeEscapeSequence">
+    <emu-nt params="UnicodeMode"><a href="#prod-RegExpUnicodeEscapeSequence">RegExpUnicodeEscapeSequence</a><emu-mods><emu-params>[UnicodeMode]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="59a3a00b" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints><emu-t>u</emu-t><emu-nt id="_ref_45"><a href="#prod-HexLeadSurrogate">HexLeadSurrogate</a></emu-nt><emu-t>\u</emu-t><emu-nt id="_ref_46"><a href="#prod-HexTrailSurrogate">HexTrailSurrogate</a></emu-nt></emu-rhs>
+    <emu-rhs a="861ab47f" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints><emu-t>u</emu-t><emu-nt id="_ref_47"><a href="#prod-HexLeadSurrogate">HexLeadSurrogate</a></emu-nt></emu-rhs>
+    <emu-rhs a="93779731" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints><emu-t>u</emu-t><emu-nt id="_ref_48"><a href="#prod-HexTrailSurrogate">HexTrailSurrogate</a></emu-nt></emu-rhs>
+    <emu-rhs a="1ae9f6d8" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints><emu-t>u</emu-t><emu-nt id="_ref_49"><a href="#prod-HexNonSurrogate">HexNonSurrogate</a></emu-nt></emu-rhs>
+    <emu-rhs a="2bfcd1d5" constraints="~UnicodeMode"><emu-constraints>[~UnicodeMode]</emu-constraints><emu-t>u</emu-t><emu-nt><a href="https://tc39.es/ecma262/#prod-Hex4Digits">Hex4Digits</a></emu-nt></emu-rhs>
+    <emu-rhs a="e36ffecb" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints><emu-t>u{</emu-t><emu-nt><a href="https://tc39.es/ecma262/#prod-CodePoint">CodePoint</a></emu-nt><emu-t>}</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="UnicodeLeadSurrogate" type="lexical" id="prod-UnicodeLeadSurrogate">
+    <emu-nt><a href="#prod-UnicodeLeadSurrogate">UnicodeLeadSurrogate</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="67a18696"><emu-gprose>any Unicode code point in the inclusive range 0xD800 to 0xDBFF</emu-gprose></emu-rhs>
+</emu-production>
+<emu-production name="UnicodeTrailSurrogate" type="lexical" id="prod-UnicodeTrailSurrogate">
+    <emu-nt><a href="#prod-UnicodeTrailSurrogate">UnicodeTrailSurrogate</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="6a011d6c"><emu-gprose>any Unicode code point in the inclusive range 0xDC00 to 0xDFFF</emu-gprose></emu-rhs>
+</emu-production></emu-grammar>
+      <p>Each <code>\u</code> <emu-nt id="_ref_50"><a href="#prod-HexTrailSurrogate">HexTrailSurrogate</a></emu-nt> for which the choice of associated <code>u</code> <emu-nt id="_ref_51"><a href="#prod-HexLeadSurrogate">HexLeadSurrogate</a></emu-nt> is ambiguous shall be associated with the nearest possible <code>u</code> <emu-nt id="_ref_52"><a href="#prod-HexLeadSurrogate">HexLeadSurrogate</a></emu-nt> that would otherwise have no corresponding <code>\u</code> <emu-nt id="_ref_53"><a href="#prod-HexTrailSurrogate">HexTrailSurrogate</a></emu-nt>.</p>
+      <emu-grammar type="definition"><emu-production name="HexLeadSurrogate" type="lexical" id="prod-HexLeadSurrogate">
+    <emu-nt><a href="#prod-HexLeadSurrogate">HexLeadSurrogate</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="3106e86d"><emu-nt><a href="https://tc39.es/ecma262/#prod-Hex4Digits">Hex4Digits</a></emu-nt><emu-gmod>but only if the MV of <emu-nt><a href="https://tc39.es/ecma262/#prod-Hex4Digits">Hex4Digits</a></emu-nt> is in the inclusive range 0xD800 to 0xDBFF</emu-gmod></emu-rhs>
+</emu-production>
+<emu-production name="HexTrailSurrogate" type="lexical" id="prod-HexTrailSurrogate">
+    <emu-nt><a href="#prod-HexTrailSurrogate">HexTrailSurrogate</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="3b4e4774"><emu-nt><a href="https://tc39.es/ecma262/#prod-Hex4Digits">Hex4Digits</a></emu-nt><emu-gmod>but only if the MV of <emu-nt><a href="https://tc39.es/ecma262/#prod-Hex4Digits">Hex4Digits</a></emu-nt> is in the inclusive range 0xDC00 to 0xDFFF</emu-gmod></emu-rhs>
+</emu-production>
+<emu-production name="HexNonSurrogate" type="lexical" id="prod-HexNonSurrogate">
+    <emu-nt><a href="#prod-HexNonSurrogate">HexNonSurrogate</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="f2daa6e4"><emu-nt><a href="https://tc39.es/ecma262/#prod-Hex4Digits">Hex4Digits</a></emu-nt><emu-gmod>but only if the MV of <emu-nt><a href="https://tc39.es/ecma262/#prod-Hex4Digits">Hex4Digits</a></emu-nt> is not in the inclusive range 0xD800 to 0xDFFF</emu-gmod></emu-rhs>
+</emu-production>
+<emu-production name="IdentityEscape" params="UnicodeMode" type="lexical" id="prod-IdentityEscape">
+    <emu-nt params="UnicodeMode"><a href="#prod-IdentityEscape">IdentityEscape</a><emu-mods><emu-params>[UnicodeMode]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="fd2c4e22" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints><emu-nt id="_ref_54"><a href="#prod-SyntaxCharacter">SyntaxCharacter</a></emu-nt></emu-rhs>
+    <emu-rhs a="222b81c7" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints><emu-t>/</emu-t></emu-rhs>
+    <emu-rhs a="91776471" constraints="~UnicodeMode"><emu-constraints>[~UnicodeMode]</emu-constraints><emu-nt><a href="https://tc39.es/ecma262/#prod-grammar-notation-SourceCharacter">SourceCharacter</a></emu-nt><emu-gmod>but not <emu-nt><a href="https://tc39.es/ecma262/#prod-UnicodeIDContinue">UnicodeIDContinue</a></emu-nt></emu-gmod></emu-rhs>
+</emu-production>
+<emu-production name="DecimalEscape" type="lexical" id="prod-DecimalEscape">
+    <emu-nt><a href="#prod-DecimalEscape">DecimalEscape</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="d402518f"><emu-nt><a href="https://tc39.es/ecma262/#prod-grammar-notation-NonZeroDigit">NonZeroDigit</a></emu-nt><emu-nt params="~Sep" optional=""><a href="https://tc39.es/ecma262/#prod-grammar-notation-DecimalDigits">DecimalDigits</a><emu-mods><emu-params>[~Sep]</emu-params><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-gann>[lookahead ∉ <emu-nt><a href="https://tc39.es/ecma262/#prod-grammar-notation-DecimalDigit">DecimalDigit</a></emu-nt>]</emu-gann></emu-rhs>
+</emu-production>
+<emu-production name="CharacterClassEscape" params="UnicodeMode" type="lexical" id="prod-CharacterClassEscape">
+    <emu-nt params="UnicodeMode"><a href="#prod-CharacterClassEscape">CharacterClassEscape</a><emu-mods><emu-params>[UnicodeMode]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="f0f32729"><emu-t>d</emu-t></emu-rhs>
+    <emu-rhs a="919b1483"><emu-t>D</emu-t></emu-rhs>
+    <emu-rhs a="5b9c6c6e"><emu-t>s</emu-t></emu-rhs>
+    <emu-rhs a="6952cf48"><emu-t>S</emu-t></emu-rhs>
+    <emu-rhs a="2d8b484a"><emu-t>w</emu-t></emu-rhs>
+    <emu-rhs a="ae15e851"><emu-t>W</emu-t></emu-rhs>
+    <emu-rhs a="a8e59718" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints><emu-t>p{</emu-t><emu-nt id="_ref_55"><a href="#prod-UnicodePropertyValueExpression">UnicodePropertyValueExpression</a></emu-nt><emu-t>}</emu-t></emu-rhs>
+    <emu-rhs a="51f90208" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints><emu-t>P{</emu-t><emu-nt id="_ref_56"><a href="#prod-UnicodePropertyValueExpression">UnicodePropertyValueExpression</a></emu-nt><emu-t>}</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="UnicodePropertyValueExpression" type="lexical" id="prod-UnicodePropertyValueExpression">
+    <emu-nt><a href="#prod-UnicodePropertyValueExpression">UnicodePropertyValueExpression</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="b11de407"><emu-nt id="_ref_57"><a href="#prod-UnicodePropertyName">UnicodePropertyName</a></emu-nt><emu-t>=</emu-t><emu-nt id="_ref_58"><a href="#prod-UnicodePropertyValue">UnicodePropertyValue</a></emu-nt></emu-rhs>
+    <emu-rhs a="25d94190"><emu-nt id="_ref_59"><a href="#prod-LoneUnicodePropertyNameOrValue">LoneUnicodePropertyNameOrValue</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="UnicodePropertyName" type="lexical" id="prod-UnicodePropertyName">
+    <emu-nt><a href="#prod-UnicodePropertyName">UnicodePropertyName</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="c0c2619f"><emu-nt id="_ref_60"><a href="#prod-UnicodePropertyNameCharacters">UnicodePropertyNameCharacters</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="UnicodePropertyNameCharacters" type="lexical" id="prod-UnicodePropertyNameCharacters">
+    <emu-nt><a href="#prod-UnicodePropertyNameCharacters">UnicodePropertyNameCharacters</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="c1247f44"><emu-nt id="_ref_61"><a href="#prod-UnicodePropertyNameCharacter">UnicodePropertyNameCharacter</a></emu-nt><emu-nt optional="" id="_ref_62"><a href="#prod-UnicodePropertyNameCharacters">UnicodePropertyNameCharacters</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="UnicodePropertyValue" type="lexical" id="prod-UnicodePropertyValue">
+    <emu-nt><a href="#prod-UnicodePropertyValue">UnicodePropertyValue</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="526a9170"><emu-nt id="_ref_63"><a href="#prod-UnicodePropertyValueCharacters">UnicodePropertyValueCharacters</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="LoneUnicodePropertyNameOrValue" type="lexical" id="prod-LoneUnicodePropertyNameOrValue">
+    <emu-nt><a href="#prod-LoneUnicodePropertyNameOrValue">LoneUnicodePropertyNameOrValue</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="526a9170"><emu-nt id="_ref_64"><a href="#prod-UnicodePropertyValueCharacters">UnicodePropertyValueCharacters</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="UnicodePropertyValueCharacters" type="lexical" id="prod-UnicodePropertyValueCharacters">
+    <emu-nt><a href="#prod-UnicodePropertyValueCharacters">UnicodePropertyValueCharacters</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="5a208aa0"><emu-nt id="_ref_65"><a href="#prod-UnicodePropertyValueCharacter">UnicodePropertyValueCharacter</a></emu-nt><emu-nt optional="" id="_ref_66"><a href="#prod-UnicodePropertyValueCharacters">UnicodePropertyValueCharacters</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="UnicodePropertyValueCharacter" type="lexical" id="prod-UnicodePropertyValueCharacter">
+    <emu-nt><a href="#prod-UnicodePropertyValueCharacter">UnicodePropertyValueCharacter</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="531254cc"><emu-nt id="_ref_67"><a href="#prod-UnicodePropertyNameCharacter">UnicodePropertyNameCharacter</a></emu-nt></emu-rhs>
+    <emu-rhs a="b3831ee0"><emu-nt><a href="https://tc39.es/ecma262/#prod-grammar-notation-DecimalDigit">DecimalDigit</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="UnicodePropertyNameCharacter" type="lexical" id="prod-UnicodePropertyNameCharacter">
+    <emu-nt><a href="#prod-UnicodePropertyNameCharacter">UnicodePropertyNameCharacter</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="69611eb2"><emu-nt id="_ref_68"><a href="#prod-ControlLetter">ControlLetter</a></emu-nt></emu-rhs>
+    <emu-rhs a="07564b94"><emu-t>_</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="CharacterClass" params="UnicodeMode" type="lexical" id="prod-CharacterClass">
+    <emu-nt params="UnicodeMode"><a href="#prod-CharacterClass">CharacterClass</a><emu-mods><emu-params>[UnicodeMode]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="a0ced099"><emu-t>[</emu-t><emu-gann>[lookahead ≠ <emu-t>^</emu-t>]</emu-gann><emu-nt params="?UnicodeMode" id="_ref_69"><a href="#prod-ClassRanges">ClassRanges</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt><emu-t>]</emu-t></emu-rhs>
+    <emu-rhs a="795b58bf"><emu-t>[</emu-t><emu-t>^</emu-t><emu-nt params="?UnicodeMode" id="_ref_70"><a href="#prod-ClassRanges">ClassRanges</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt><emu-t>]</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="ClassRanges" params="UnicodeMode" type="lexical" id="prod-ClassRanges">
+    <emu-nt params="UnicodeMode"><a href="#prod-ClassRanges">ClassRanges</a><emu-mods><emu-params>[UnicodeMode]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="37b9c04c"><emu-gann>[empty]</emu-gann></emu-rhs>
+    <emu-rhs a="a18d531f"><emu-nt params="?UnicodeMode" id="_ref_71"><a href="#prod-NonemptyClassRanges">NonemptyClassRanges</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="NonemptyClassRanges" params="UnicodeMode" type="lexical" id="prod-NonemptyClassRanges">
+    <emu-nt params="UnicodeMode"><a href="#prod-NonemptyClassRanges">NonemptyClassRanges</a><emu-mods><emu-params>[UnicodeMode]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="3f5e0712"><emu-nt params="?UnicodeMode" id="_ref_72"><a href="#prod-ClassAtom">ClassAtom</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="fbf3eb5b"><emu-nt params="?UnicodeMode" id="_ref_73"><a href="#prod-ClassAtom">ClassAtom</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt><emu-nt params="?UnicodeMode" id="_ref_74"><a href="#prod-NonemptyClassRangesNoDash">NonemptyClassRangesNoDash</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="6bf23158"><emu-nt params="?UnicodeMode" id="_ref_75"><a href="#prod-ClassAtom">ClassAtom</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt><emu-t>-</emu-t><emu-nt params="?UnicodeMode" id="_ref_76"><a href="#prod-ClassAtom">ClassAtom</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt><emu-nt params="?UnicodeMode" id="_ref_77"><a href="#prod-ClassRanges">ClassRanges</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="NonemptyClassRangesNoDash" params="UnicodeMode" type="lexical" id="prod-NonemptyClassRangesNoDash">
+    <emu-nt params="UnicodeMode"><a href="#prod-NonemptyClassRangesNoDash">NonemptyClassRangesNoDash</a><emu-mods><emu-params>[UnicodeMode]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="3f5e0712"><emu-nt params="?UnicodeMode" id="_ref_78"><a href="#prod-ClassAtom">ClassAtom</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="4df7170c"><emu-nt params="?UnicodeMode" id="_ref_79"><a href="#prod-ClassAtomNoDash">ClassAtomNoDash</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt><emu-nt params="?UnicodeMode" id="_ref_80"><a href="#prod-NonemptyClassRangesNoDash">NonemptyClassRangesNoDash</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="e82c3a34"><emu-nt params="?UnicodeMode" id="_ref_81"><a href="#prod-ClassAtomNoDash">ClassAtomNoDash</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt><emu-t>-</emu-t><emu-nt params="?UnicodeMode" id="_ref_82"><a href="#prod-ClassAtom">ClassAtom</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt><emu-nt params="?UnicodeMode" id="_ref_83"><a href="#prod-ClassRanges">ClassRanges</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="ClassAtom" params="UnicodeMode" type="lexical" id="prod-ClassAtom">
+    <emu-nt params="UnicodeMode"><a href="#prod-ClassAtom">ClassAtom</a><emu-mods><emu-params>[UnicodeMode]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="6f24a587"><emu-t>-</emu-t></emu-rhs>
+    <emu-rhs a="3462e88c"><emu-nt params="?UnicodeMode" id="_ref_84"><a href="#prod-ClassAtomNoDash">ClassAtomNoDash</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="ClassAtomNoDash" params="UnicodeMode" type="lexical" id="prod-ClassAtomNoDash">
+    <emu-nt params="UnicodeMode"><a href="#prod-ClassAtomNoDash">ClassAtomNoDash</a><emu-mods><emu-params>[UnicodeMode]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="ecde6e28"><emu-nt><a href="https://tc39.es/ecma262/#prod-grammar-notation-SourceCharacter">SourceCharacter</a></emu-nt><emu-gmod>but not one of <emu-t>\</emu-t> or <emu-t>]</emu-t> or <emu-t>-</emu-t></emu-gmod></emu-rhs>
+    <emu-rhs a="f101a467"><emu-t>\</emu-t><emu-nt params="?UnicodeMode" id="_ref_85"><a href="#prod-ClassEscape">ClassEscape</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="ClassEscape" params="UnicodeMode" type="lexical" id="prod-ClassEscape">
+    <emu-nt params="UnicodeMode"><a href="#prod-ClassEscape">ClassEscape</a><emu-mods><emu-params>[UnicodeMode]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="0185ce89"><emu-t>b</emu-t></emu-rhs>
+    <emu-rhs a="eff1b897" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints><emu-t>-</emu-t></emu-rhs>
+    <emu-rhs a="d5d2e723"><emu-nt params="?UnicodeMode" id="_ref_86"><a href="#prod-CharacterClassEscape">CharacterClassEscape</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="8b809e79"><emu-nt params="?UnicodeMode" id="_ref_87"><a href="#prod-CharacterEscape">CharacterEscape</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+</emu-production></emu-grammar>
+
+      <emu-note><span class="note">Note 1</span><div class="note-contents">
+        <p>A number of productions in this section are given alternative definitions in section <emu-xref href="#sec-regular-expressions-patterns" id="_ref_0"><a href="#sec-regular-expressions-patterns">A.1.1</a></emu-xref>.</p>
+      </div></emu-note>
+      <ins class="block">
+        <emu-note><span class="note">Note 2</span><div class="note-contents">
+          While the sequence <code>\Z</code> is already an error when the <code>u</code> (unicode) flag is present, it is reserved for possible future use as an extension of the <code>\A</code> and <code>\z</code> assertions.
+        </div></emu-note>
+      </ins>
+    </emu-clause>
+
+    <emu-clause id="sec-pattern-semantics">
+      <h1><span class="secnum">1.1.2</span> Pattern Semantics</h1>
+      <emu-clause id="sec-compileassertion" type="sdo">
+        <h1><span class="secnum">1.1.2.1</span> 
+          Runtime Semantics: CompileAssertion
+        </h1>
+        <dl class="header">
+          <dt>description</dt>
+          <dd>It returns a Matcher.</dd>
+        </dl>
+
+        <ins class="block">
+        <emu-grammar><emu-production name="Assertion" type="lexical" collapsed="">
+    <emu-nt><a href="#prod-Assertion">Assertion</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="45bceed4"><emu-t>\</emu-t><emu-t>A</emu-t></emu-rhs>
+</emu-production></emu-grammar>
+        <emu-alg><ol><li>Returns a new Matcher with parameters (<var>x</var>, <var>c</var>) that captures nothing and performs the following steps when called:<ol><li><emu-xref href="#assert"><a href="https://tc39.es/ecma262/#assert">Assert</a></emu-xref>: <var>x</var> is a State.</li><li><emu-xref href="#assert"><a href="https://tc39.es/ecma262/#assert">Assert</a></emu-xref>: <var>c</var> is a Continuation.</li><li>Let <var>e</var> be <var>x</var>'s <var>endIndex</var>.</li><li>If <var>e</var> = 0, return <var>c</var>(<var>x</var>).</li><li>Return <emu-const>failure</emu-const>.</li></ol></li></ol></emu-alg>
+
+        <emu-grammar><emu-production name="Assertion" type="lexical" collapsed="">
+    <emu-nt><a href="#prod-Assertion">Assertion</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="3f75e477"><emu-t>\</emu-t><emu-t>z</emu-t></emu-rhs>
+</emu-production></emu-grammar>
+        <emu-alg><ol><li>Returns a new Matcher with parameters (<var>x</var>, <var>c</var>) that captures nothing and performs the following steps when called:<ol><li><emu-xref href="#assert"><a href="https://tc39.es/ecma262/#assert">Assert</a></emu-xref>: <var>x</var> is a State.</li><li><emu-xref href="#assert"><a href="https://tc39.es/ecma262/#assert">Assert</a></emu-xref>: <var>c</var> is a Continuation.</li><li>Let <var>e</var> be <var>x</var>'s <var>endIndex</var>.</li><li>If <var>e</var> = <var>InputLength</var>, return <var>c</var>(<var>x</var>).</li><li>Return <emu-const>failure</emu-const>.</li></ol></li></ol></emu-alg>
+        </ins>
+      </emu-clause>
+    </emu-clause>
+  </emu-clause>
+</emu-clause>
+
+<emu-annex id="sec-additional-ecmascript-features-for-web-browsers" namespace="annexB" normative="">
+  <h1><span class="secnum">A</span> Additional ECMAScript Features for Web Browsers</h1>
+
+  <emu-annex id="sec-additional-syntax">
+    <h1><span class="secnum">A.1</span> Additional Syntax</h1>
+
+    <emu-annex id="sec-regular-expressions-patterns">
+      <h1><span class="secnum">A.1.1</span> Regular Expressions Patterns</h1>
+      <p>The syntax of <emu-xref href="#sec-patterns" id="_ref_1"><a href="#sec-patterns">1.1.1</a></emu-xref> is modified and extended as follows. These changes introduce ambiguities that are broken by the ordering of grammar productions and by contextual information. When parsing using the following grammar, each alternative is considered only if previous production alternatives do not match.</p>
+      <p>This alternative pattern grammar and semantics only changes the syntax and semantics of BMP patterns. The following grammar extensions include productions parameterized with the [UnicodeMode] parameter. However, none of these extensions change the syntax of Unicode patterns recognized when parsing with the [UnicodeMode] parameter present on the <emu-xref href="#sec-context-free-grammars"><a href="https://tc39.es/ecma262/#sec-context-free-grammars">goal symbol</a></emu-xref>.</p>
+      <h2>Syntax</h2>
+      <emu-grammar type="definition"><emu-production name="Term" params="UnicodeMode, N" type="lexical" id="prod-annexB-Term">
+    <emu-nt params="UnicodeMode, N"><a href="#prod-annexB-Term">Term</a><emu-mods><emu-params>[UnicodeMode, N]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="94a80825" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints><emu-nt params="+UnicodeMode, ?N" id="_ref_88"><a href="#prod-annexB-Assertion">Assertion</a><emu-mods><emu-params>[+UnicodeMode, ?N]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="fa2406f0" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints><emu-nt params="+UnicodeMode, ?N" id="_ref_89"><a href="#prod-Atom">Atom</a><emu-mods><emu-params>[+UnicodeMode, ?N]</emu-params></emu-mods></emu-nt><emu-nt id="_ref_90"><a href="#prod-Quantifier">Quantifier</a></emu-nt></emu-rhs>
+    <emu-rhs a="0595e53a" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints><emu-nt params="+UnicodeMode, ?N" id="_ref_91"><a href="#prod-Atom">Atom</a><emu-mods><emu-params>[+UnicodeMode, ?N]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="2da4ec57" constraints="~UnicodeMode"><emu-constraints>[~UnicodeMode]</emu-constraints><emu-nt params="?N" id="_ref_92"><a href="#prod-annexB-QuantifiableAssertion">QuantifiableAssertion</a><emu-mods><emu-params>[?N]</emu-params></emu-mods></emu-nt><emu-nt id="_ref_93"><a href="#prod-Quantifier">Quantifier</a></emu-nt></emu-rhs>
+    <emu-rhs a="2462a306" constraints="~UnicodeMode"><emu-constraints>[~UnicodeMode]</emu-constraints><emu-nt params="~UnicodeMode, ?N" id="_ref_94"><a href="#prod-annexB-Assertion">Assertion</a><emu-mods><emu-params>[~UnicodeMode, ?N]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="fcc61506" constraints="~UnicodeMode"><emu-constraints>[~UnicodeMode]</emu-constraints><emu-nt params="?N" id="_ref_95"><a href="#prod-annexB-ExtendedAtom">ExtendedAtom</a><emu-mods><emu-params>[?N]</emu-params></emu-mods></emu-nt><emu-nt id="_ref_96"><a href="#prod-Quantifier">Quantifier</a></emu-nt></emu-rhs>
+    <emu-rhs a="8919a58c" constraints="~UnicodeMode"><emu-constraints>[~UnicodeMode]</emu-constraints><emu-nt params="?N" id="_ref_97"><a href="#prod-annexB-ExtendedAtom">ExtendedAtom</a><emu-mods><emu-params>[?N]</emu-params></emu-mods></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="Assertion" params="UnicodeMode, N" type="lexical" id="prod-annexB-Assertion">
+    <emu-nt params="UnicodeMode, N"><a href="#prod-annexB-Assertion">Assertion</a><emu-mods><emu-params>[UnicodeMode, N]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="e5878811"><emu-t>^</emu-t></emu-rhs>
+    <emu-rhs a="1262cc92"><emu-t>$</emu-t></emu-rhs>
+    <ins><emu-rhs a="45bceed4"><emu-t>\</emu-t><emu-t>A</emu-t></emu-rhs></ins>
+    <ins><emu-rhs a="3f75e477"><emu-t>\</emu-t><emu-t>z</emu-t></emu-rhs></ins>
+    <emu-rhs a="1e228da5"><emu-t>\</emu-t><emu-t>b</emu-t></emu-rhs>
+    <emu-rhs a="a5dc97fa"><emu-t>\</emu-t><emu-t>B</emu-t></emu-rhs>
+    <emu-rhs a="cf3b190e" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints><emu-t>(</emu-t><emu-t>?</emu-t><emu-t>=</emu-t><emu-nt params="+UnicodeMode, ?N" id="_ref_98"><a href="#prod-Disjunction">Disjunction</a><emu-mods><emu-params>[+UnicodeMode, ?N]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t></emu-rhs>
+    <emu-rhs a="1622654d" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints><emu-t>(</emu-t><emu-t>?</emu-t><emu-t>!</emu-t><emu-nt params="+UnicodeMode, ?N" id="_ref_99"><a href="#prod-Disjunction">Disjunction</a><emu-mods><emu-params>[+UnicodeMode, ?N]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t></emu-rhs>
+    <emu-rhs a="46cbbf65" constraints="~UnicodeMode"><emu-constraints>[~UnicodeMode]</emu-constraints><emu-nt params="?N" id="_ref_100"><a href="#prod-annexB-QuantifiableAssertion">QuantifiableAssertion</a><emu-mods><emu-params>[?N]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="c04d0f14"><emu-t>(</emu-t><emu-t>?</emu-t><emu-t>&lt;=</emu-t><emu-nt params="?UnicodeMode, ?N" id="_ref_101"><a href="#prod-Disjunction">Disjunction</a><emu-mods><emu-params>[?UnicodeMode, ?N]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t></emu-rhs>
+    <emu-rhs a="b317fc0a"><emu-t>(</emu-t><emu-t>?</emu-t><emu-t>&lt;!</emu-t><emu-nt params="?UnicodeMode, ?N" id="_ref_102"><a href="#prod-Disjunction">Disjunction</a><emu-mods><emu-params>[?UnicodeMode, ?N]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="QuantifiableAssertion" params="N" type="lexical" id="prod-annexB-QuantifiableAssertion">
+    <emu-nt params="N"><a href="#prod-annexB-QuantifiableAssertion">QuantifiableAssertion</a><emu-mods><emu-params>[N]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="c7ba41a8"><emu-t>(</emu-t><emu-t>?</emu-t><emu-t>=</emu-t><emu-nt params="~UnicodeMode, ?N" id="_ref_103"><a href="#prod-Disjunction">Disjunction</a><emu-mods><emu-params>[~UnicodeMode, ?N]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t></emu-rhs>
+    <emu-rhs a="5ecbaa8e"><emu-t>(</emu-t><emu-t>?</emu-t><emu-t>!</emu-t><emu-nt params="~UnicodeMode, ?N" id="_ref_104"><a href="#prod-Disjunction">Disjunction</a><emu-mods><emu-params>[~UnicodeMode, ?N]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="ExtendedAtom" params="N" type="lexical" id="prod-annexB-ExtendedAtom">
+    <emu-nt params="N"><a href="#prod-annexB-ExtendedAtom">ExtendedAtom</a><emu-mods><emu-params>[N]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="9658e473"><emu-t>.</emu-t></emu-rhs>
+    <emu-rhs a="e808ae3a"><emu-t>\</emu-t><emu-nt params="~UnicodeMode, ?N" id="_ref_105"><a href="#prod-annexB-AtomEscape">AtomEscape</a><emu-mods><emu-params>[~UnicodeMode, ?N]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="dc7c5bc4"><emu-t>\</emu-t><emu-gann>[lookahead = <emu-t>c</emu-t>]</emu-gann></emu-rhs>
+    <emu-rhs a="1f98f040"><emu-nt params="~UnicodeMode" id="_ref_106"><a href="#prod-CharacterClass">CharacterClass</a><emu-mods><emu-params>[~UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="c92bcbbd"><emu-t>(</emu-t><emu-nt params="~UnicodeMode, ?N" id="_ref_107"><a href="#prod-Disjunction">Disjunction</a><emu-mods><emu-params>[~UnicodeMode, ?N]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t></emu-rhs>
+    <emu-rhs a="9b34bd39"><emu-t>(</emu-t><emu-t>?</emu-t><emu-t>:</emu-t><emu-nt params="~UnicodeMode, ?N" id="_ref_108"><a href="#prod-Disjunction">Disjunction</a><emu-mods><emu-params>[~UnicodeMode, ?N]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t></emu-rhs>
+    <emu-rhs a="bbd715bb"><emu-nt id="_ref_109"><a href="#prod-annexB-InvalidBracedQuantifier">InvalidBracedQuantifier</a></emu-nt></emu-rhs>
+    <emu-rhs a="23a78a5b"><emu-nt id="_ref_110"><a href="#prod-annexB-ExtendedPatternCharacter">ExtendedPatternCharacter</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="InvalidBracedQuantifier" type="lexical" id="prod-annexB-InvalidBracedQuantifier">
+    <emu-nt><a href="#prod-annexB-InvalidBracedQuantifier">InvalidBracedQuantifier</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="a8dda26e"><emu-t>{</emu-t><emu-nt params="~Sep"><a href="https://tc39.es/ecma262/#prod-grammar-notation-DecimalDigits">DecimalDigits</a><emu-mods><emu-params>[~Sep]</emu-params></emu-mods></emu-nt><emu-t>}</emu-t></emu-rhs>
+    <emu-rhs a="15684d0d"><emu-t>{</emu-t><emu-nt params="~Sep"><a href="https://tc39.es/ecma262/#prod-grammar-notation-DecimalDigits">DecimalDigits</a><emu-mods><emu-params>[~Sep]</emu-params></emu-mods></emu-nt><emu-t>,</emu-t><emu-t>}</emu-t></emu-rhs>
+    <emu-rhs a="6d31c523"><emu-t>{</emu-t><emu-nt params="~Sep"><a href="https://tc39.es/ecma262/#prod-grammar-notation-DecimalDigits">DecimalDigits</a><emu-mods><emu-params>[~Sep]</emu-params></emu-mods></emu-nt><emu-t>,</emu-t><emu-nt params="~Sep"><a href="https://tc39.es/ecma262/#prod-grammar-notation-DecimalDigits">DecimalDigits</a><emu-mods><emu-params>[~Sep]</emu-params></emu-mods></emu-nt><emu-t>}</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="ExtendedPatternCharacter" type="lexical" id="prod-annexB-ExtendedPatternCharacter">
+    <emu-nt><a href="#prod-annexB-ExtendedPatternCharacter">ExtendedPatternCharacter</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="a6a8bcc8"><emu-nt><a href="https://tc39.es/ecma262/#prod-grammar-notation-SourceCharacter">SourceCharacter</a></emu-nt><emu-gmod>but not one of <emu-t>^</emu-t></emu-gmod><emu-t>$</emu-t><emu-t>\</emu-t><emu-t>.</emu-t><emu-t>*</emu-t><emu-t>+</emu-t><emu-t>?</emu-t><emu-t>(</emu-t><emu-t>)</emu-t><emu-t>[</emu-t><emu-t>|</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="AtomEscape" params="UnicodeMode, N" type="lexical" id="prod-annexB-AtomEscape">
+    <emu-nt params="UnicodeMode, N"><a href="#prod-annexB-AtomEscape">AtomEscape</a><emu-mods><emu-params>[UnicodeMode, N]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="ba756c63" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints><emu-nt id="_ref_111"><a href="#prod-DecimalEscape">DecimalEscape</a></emu-nt></emu-rhs>
+    <emu-rhs a="3dc7600f" constraints="~UnicodeMode"><emu-constraints>[~UnicodeMode]</emu-constraints><emu-nt id="_ref_112"><a href="#prod-DecimalEscape">DecimalEscape</a></emu-nt><emu-gmod>but only if the CapturingGroupNumber of <emu-nt id="_ref_113"><a href="#prod-DecimalEscape">DecimalEscape</a></emu-nt> is ≤ _NcapturingParens_</emu-gmod></emu-rhs>
+    <emu-rhs a="d5d2e723"><emu-nt params="?UnicodeMode" id="_ref_114"><a href="#prod-CharacterClassEscape">CharacterClassEscape</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="7d3dc7fc"><emu-nt params="?UnicodeMode, ?N" id="_ref_115"><a href="#prod-annexB-CharacterEscape">CharacterEscape</a><emu-mods><emu-params>[?UnicodeMode, ?N]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="e7d61952" constraints="+N"><emu-constraints>[+N]</emu-constraints><emu-t>k</emu-t><emu-nt params="?UnicodeMode" id="_ref_116"><a href="#prod-GroupName">GroupName</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="CharacterEscape" params="UnicodeMode, N" type="lexical" id="prod-annexB-CharacterEscape">
+    <emu-nt params="UnicodeMode, N"><a href="#prod-annexB-CharacterEscape">CharacterEscape</a><emu-mods><emu-params>[UnicodeMode, N]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="f88e7170"><emu-nt id="_ref_117"><a href="#prod-ControlEscape">ControlEscape</a></emu-nt></emu-rhs>
+    <emu-rhs a="a14dae7e"><emu-t>c</emu-t><emu-nt id="_ref_118"><a href="#prod-ControlLetter">ControlLetter</a></emu-nt></emu-rhs>
+    <emu-rhs a="6ebd9df7"><emu-t>0</emu-t><emu-gann>[lookahead ∉ <emu-nt><a href="https://tc39.es/ecma262/#prod-grammar-notation-DecimalDigit">DecimalDigit</a></emu-nt>]</emu-gann></emu-rhs>
+    <emu-rhs a="a8071b85"><emu-nt><a href="https://tc39.es/ecma262/#prod-HexEscapeSequence">HexEscapeSequence</a></emu-nt></emu-rhs>
+    <emu-rhs a="b300ac7b"><emu-nt params="?UnicodeMode" id="_ref_119"><a href="#prod-RegExpUnicodeEscapeSequence">RegExpUnicodeEscapeSequence</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="fb1962d4" constraints="~UnicodeMode"><emu-constraints>[~UnicodeMode]</emu-constraints><emu-nt><a href="https://tc39.es/ecma262/#prod-annexB-LegacyOctalEscapeSequence">LegacyOctalEscapeSequence</a></emu-nt></emu-rhs>
+    <emu-rhs a="941bf5a5"><emu-nt params="?UnicodeMode, ?N" id="_ref_120"><a href="#prod-annexB-IdentityEscape">IdentityEscape</a><emu-mods><emu-params>[?UnicodeMode, ?N]</emu-params></emu-mods></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="IdentityEscape" params="UnicodeMode, N" type="lexical" id="prod-annexB-IdentityEscape">
+    <emu-nt params="UnicodeMode, N"><a href="#prod-annexB-IdentityEscape">IdentityEscape</a><emu-mods><emu-params>[UnicodeMode, N]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="fd2c4e22" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints><emu-nt id="_ref_121"><a href="#prod-SyntaxCharacter">SyntaxCharacter</a></emu-nt></emu-rhs>
+    <emu-rhs a="222b81c7" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints><emu-t>/</emu-t></emu-rhs>
+    <emu-rhs a="bb58660d" constraints="~UnicodeMode"><emu-constraints>[~UnicodeMode]</emu-constraints><emu-nt params="?N" id="_ref_122"><a href="#prod-annexB-SourceCharacterIdentityEscape">SourceCharacterIdentityEscape</a><emu-mods><emu-params>[?N]</emu-params></emu-mods></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="SourceCharacterIdentityEscape" params="N" type="lexical" id="prod-annexB-SourceCharacterIdentityEscape">
+    <emu-nt params="N"><a href="#prod-annexB-SourceCharacterIdentityEscape">SourceCharacterIdentityEscape</a><emu-mods><emu-params>[N]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="32b1b462" constraints="~N"><emu-constraints>[~N]</emu-constraints><emu-nt><a href="https://tc39.es/ecma262/#prod-grammar-notation-SourceCharacter">SourceCharacter</a></emu-nt><emu-gmod>but not <emu-t>c</emu-t></emu-gmod></emu-rhs>
+    <emu-rhs a="5feea087" constraints="+N"><emu-constraints>[+N]</emu-constraints><emu-nt><a href="https://tc39.es/ecma262/#prod-grammar-notation-SourceCharacter">SourceCharacter</a></emu-nt><emu-gmod>but not one of <emu-t>c</emu-t> or <emu-t>k</emu-t></emu-gmod></emu-rhs>
+</emu-production>
+<emu-production name="ClassAtomNoDash" params="UnicodeMode, N" type="lexical" id="prod-annexB-ClassAtomNoDash">
+    <emu-nt params="UnicodeMode, N"><a href="#prod-annexB-ClassAtomNoDash">ClassAtomNoDash</a><emu-mods><emu-params>[UnicodeMode, N]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="ecde6e28"><emu-nt><a href="https://tc39.es/ecma262/#prod-grammar-notation-SourceCharacter">SourceCharacter</a></emu-nt><emu-gmod>but not one of <emu-t>\</emu-t> or <emu-t>]</emu-t> or <emu-t>-</emu-t></emu-gmod></emu-rhs>
+    <emu-rhs a="cca59e34"><emu-t>\</emu-t><emu-nt params="?UnicodeMode, ?N" id="_ref_123"><a href="#prod-annexB-ClassEscape">ClassEscape</a><emu-mods><emu-params>[?UnicodeMode, ?N]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="dc7c5bc4"><emu-t>\</emu-t><emu-gann>[lookahead = <emu-t>c</emu-t>]</emu-gann></emu-rhs>
+</emu-production>
+<emu-production name="ClassEscape" params="UnicodeMode, N" type="lexical" id="prod-annexB-ClassEscape">
+    <emu-nt params="UnicodeMode, N"><a href="#prod-annexB-ClassEscape">ClassEscape</a><emu-mods><emu-params>[UnicodeMode, N]</emu-params></emu-mods></emu-nt><emu-geq>::</emu-geq><emu-rhs a="0185ce89"><emu-t>b</emu-t></emu-rhs>
+    <emu-rhs a="eff1b897" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints><emu-t>-</emu-t></emu-rhs>
+    <emu-rhs a="78086fde" constraints="~UnicodeMode"><emu-constraints>[~UnicodeMode]</emu-constraints><emu-t>c</emu-t><emu-nt id="_ref_124"><a href="#prod-annexB-ClassControlLetter">ClassControlLetter</a></emu-nt></emu-rhs>
+    <emu-rhs a="d5d2e723"><emu-nt params="?UnicodeMode" id="_ref_125"><a href="#prod-CharacterClassEscape">CharacterClassEscape</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="7d3dc7fc"><emu-nt params="?UnicodeMode, ?N" id="_ref_126"><a href="#prod-annexB-CharacterEscape">CharacterEscape</a><emu-mods><emu-params>[?UnicodeMode, ?N]</emu-params></emu-mods></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="ClassControlLetter" type="lexical" id="prod-annexB-ClassControlLetter">
+    <emu-nt><a href="#prod-annexB-ClassControlLetter">ClassControlLetter</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="b3831ee0"><emu-nt><a href="https://tc39.es/ecma262/#prod-grammar-notation-DecimalDigit">DecimalDigit</a></emu-nt></emu-rhs>
+    <emu-rhs a="07564b94"><emu-t>_</emu-t></emu-rhs>
+</emu-production></emu-grammar>
+      <emu-note><span class="note">Note</span><div class="note-contents">
+        <p>When the same left-hand sides occurs with both [+UnicodeMode] and [~UnicodeMode] guards it is to control the disambiguation priority.</p>
+      </div></emu-note>
+    </emu-annex>
+  </emu-annex>
+</emu-annex><emu-annex id="sec-copyright-and-software-license">
+      <h1><span class="secnum">B</span> Copyright &amp; Software License</h1>
+      
+      <h2>Copyright Notice</h2>
+      <p>© 2022 Ron Buckton, Ecma International</p>
+
+      <h2>Software License</h2>
+      <p>All Software contained in this document ("Software") is protected by copyright and is being made available under the "BSD License", included below. This Software may be subject to third party rights (rights from parties other than Ecma International), including patent rights, and no licenses under such third party rights are granted under this license even if the third party concerned is a member of Ecma International. SEE THE ECMA CODE OF CONDUCT IN PATENT MATTERS AVAILABLE AT https://ecma-international.org/memento/codeofconduct.htm FOR INFORMATION REGARDING THE LICENSING OF PATENT CLAIMS THAT ARE REQUIRED TO IMPLEMENT ECMA INTERNATIONAL STANDARDS.</p>
+
+<p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p>
+
+<ol>
+  <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
+  <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
+  <li>Neither the name of the authors nor Ecma International may be used to endorse or promote products derived from this software without specific prior written permission.</li>
+</ol>
+
+<p>THIS SOFTWARE IS PROVIDED BY THE ECMA INTERNATIONAL "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL ECMA INTERNATIONAL BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+
+    </emu-annex>
+</div></body>

@@ -1848,7 +1848,7 @@ li.menu-search-result-term:before {
           Runtime Semantics: CompileAssertion
         "><span class="secnum">1.1.2.1</span> 
           RS: CompileAssertion
-        </a></li></ol></li></ol></li></ol></li><li><span class="item-toggle">◢</span><a href="#sec-additional-ecmascript-features-for-web-browsers" title="Additional ECMAScript Features for Web Browsers"><span class="secnum">A</span> Additional ECMAScript Features for Web Browsers</a><ol class="toc"><li><span class="item-toggle">◢</span><a href="#sec-additional-syntax" title="Additional Syntax"><span class="secnum">A.1</span> Additional Syntax</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-regular-expressions-patterns" title="Regular Expressions Patterns"><span class="secnum">A.1.1</span> Regular Expressions Patterns</a></li></ol></li></ol></li><li><span class="item-toggle-none"></span><a href="#sec-copyright-and-software-license" title="Copyright &amp; Software License"><span class="secnum">B</span> Copyright &amp; Software License</a></li></ol></div></div><div id="spec-container"><h1 class="version first">Stage 2 Draft / May 28, 2022</h1><h1 class="title">Regular Expression Buffer Boundaries for ECMAScript</h1>
+        </a></li></ol></li></ol></li></ol></li><li><span class="item-toggle">◢</span><a href="#sec-additional-ecmascript-features-for-web-browsers" title="Additional ECMAScript Features for Web Browsers"><span class="secnum">A</span> Additional ECMAScript Features for Web Browsers</a><ol class="toc"><li><span class="item-toggle">◢</span><a href="#sec-additional-syntax" title="Additional Syntax"><span class="secnum">A.1</span> Additional Syntax</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-regular-expressions-patterns" title="Regular Expressions Patterns"><span class="secnum">A.1.1</span> Regular Expressions Patterns</a></li></ol></li></ol></li><li><span class="item-toggle-none"></span><a href="#sec-copyright-and-software-license" title="Copyright &amp; Software License"><span class="secnum">B</span> Copyright &amp; Software License</a></li></ol></div></div><div id="spec-container"><h1 class="version first">Stage 2 Draft / March 5, 2026</h1><h1 class="title">Regular Expression Buffer Boundaries for ECMAScript</h1>
 
 <emu-intro id="sec-intro">
   <h1>Introduction</h1>
@@ -2097,7 +2097,7 @@ li.menu-search-result-term:before {
         <emu-grammar><emu-production name="Assertion" type="lexical" collapsed="">
     <emu-nt><a href="#prod-Assertion">Assertion</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="3f75e477"><emu-t>\</emu-t><emu-t>z</emu-t></emu-rhs>
 </emu-production></emu-grammar>
-        <emu-alg><ol><li>Returns a new Matcher with parameters (<var>x</var>, <var>c</var>) that captures nothing and performs the following steps when called:<ol><li><emu-xref href="#assert"><a href="https://tc39.es/ecma262/#assert">Assert</a></emu-xref>: <var>x</var> is a State.</li><li><emu-xref href="#assert"><a href="https://tc39.es/ecma262/#assert">Assert</a></emu-xref>: <var>c</var> is a Continuation.</li><li>Let <var>e</var> be <var>x</var>'s <var>endIndex</var>.</li><li>If <var>e</var> = <var>InputLength</var>, return <var>c</var>(<var>x</var>).</li><li>Return <emu-const>failure</emu-const>.</li></ol></li></ol></emu-alg>
+        <emu-alg><ol><li>Returns a new Matcher with parameters (<var>x</var>, <var>c</var>) that captures nothing and performs the following steps when called:<ol><li><emu-xref href="#assert"><a href="https://tc39.es/ecma262/#assert">Assert</a></emu-xref>: <var>x</var> is a State.</li><li><emu-xref href="#assert"><a href="https://tc39.es/ecma262/#assert">Assert</a></emu-xref>: <var>c</var> is a Continuation.</li><li>Let <var>e</var> be <var>x</var>'s <var>endIndex</var>.</li><li>Let <var>InputLength</var> be the number of elements in <var>Input</var>.</li><li>If <var>e</var> = <var>InputLength</var>, return <var>c</var>(<var>x</var>).</li><li>Return <emu-const>failure</emu-const>.</li></ol></li></ol></emu-alg>
         </ins>
       </emu-clause>
     </emu-clause>
@@ -2209,7 +2209,7 @@ li.menu-search-result-term:before {
       <h1><span class="secnum">B</span> Copyright &amp; Software License</h1>
       
       <h2>Copyright Notice</h2>
-      <p>© 2022 Ron Buckton, Ecma International</p>
+      <p>© 2026 Ron Buckton, Ecma International</p>
 
       <h2>Software License</h2>
       <p>All Software contained in this document ("Software") is protected by copyright and is being made available under the "BSD License", included below. This Software may be subject to third party rights (rights from parties other than Ecma International), including patent rights, and no licenses under such third party rights are granted under this license even if the third party concerned is a member of Ecma International. SEE THE ECMA CODE OF CONDUCT IN PATENT MATTERS AVAILABLE AT https://ecma-international.org/memento/codeofconduct.htm FOR INFORMATION REGARDING THE LICENSING OF PATENT CLAIMS THAT ARE REQUIRED TO IMPLEMENT ECMA INTERNATIONAL STANDARDS.</p>

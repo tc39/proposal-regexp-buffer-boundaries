@@ -246,7 +246,7 @@ contributors: Ron Buckton, Ecma International
         </h1>
         <dl class="header">
           <dt>description</dt>
-          <dd>It returns a Matcher.</dd>
+          <dd></dd>
         </dl>
 
         <ins class="block">
@@ -254,10 +254,10 @@ contributors: Ron Buckton, Ecma International
           Assertion :: `\` `A`
         </emu-grammar>
         <emu-alg>
-          1. Returns a new Matcher with parameters (_x_, _c_) that captures nothing and performs the following steps when called:
-            1. Assert: _x_ is a State.
-            1. Assert: _c_ is a Continuation.
-            1. Let _e_ be _x_'s _endIndex_.
+          1. Return a new Matcher with parameters (_x_, _c_) that captures nothing and performs the following steps when called:
+            1. Assert: _x_ is a MatchState.
+            1. Assert: _c_ is a MatcherContinuation.
+            1. Let _e_ be _x_.[[EndIndex]].
             1. If _e_ = 0, return _c_(_x_).
             1. Return ~failure~.
         </emu-alg>
@@ -266,10 +266,11 @@ contributors: Ron Buckton, Ecma International
           Assertion :: `\` `z`
         </emu-grammar>
         <emu-alg>
-          1. Returns a new Matcher with parameters (_x_, _c_) that captures nothing and performs the following steps when called:
-            1. Assert: _x_ is a State.
-            1. Assert: _c_ is a Continuation.
-            1. Let _e_ be _x_'s _endIndex_.
+          1. Return a new Matcher with parameters (_x_, _c_) that captures nothing and performs the following steps when called:
+            1. Assert: _x_ is a MatchState.
+            1. Assert: _c_ is a MatcherContinuation.
+            1. Let _Input_ be _x_.[[Input]].
+            1. Let _e_ be _x_.[[EndIndex]].
             1. Let _InputLength_ be the number of elements in _Input_.
             1. If _e_ = _InputLength_, return _c_(_x_).
             1. Return ~failure~.

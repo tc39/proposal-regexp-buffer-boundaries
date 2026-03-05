@@ -2085,19 +2085,19 @@ li.menu-search-result-term:before {
         </h1>
         <dl class="header">
           <dt>description</dt>
-          <dd>It returns a Matcher.</dd>
+          <dd></dd>
         </dl>
 
         <ins class="block">
         <emu-grammar><emu-production name="Assertion" type="lexical" collapsed="">
     <emu-nt><a href="#prod-Assertion">Assertion</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="45bceed4"><emu-t>\</emu-t><emu-t>A</emu-t></emu-rhs>
 </emu-production></emu-grammar>
-        <emu-alg><ol><li>Returns a new Matcher with parameters (<var>x</var>, <var>c</var>) that captures nothing and performs the following steps when called:<ol><li><emu-xref href="#assert"><a href="https://tc39.es/ecma262/#assert">Assert</a></emu-xref>: <var>x</var> is a State.</li><li><emu-xref href="#assert"><a href="https://tc39.es/ecma262/#assert">Assert</a></emu-xref>: <var>c</var> is a Continuation.</li><li>Let <var>e</var> be <var>x</var>'s <var>endIndex</var>.</li><li>If <var>e</var> = 0, return <var>c</var>(<var>x</var>).</li><li>Return <emu-const>failure</emu-const>.</li></ol></li></ol></emu-alg>
+        <emu-alg><ol><li>Return a new Matcher with parameters (<var>x</var>, <var>c</var>) that captures nothing and performs the following steps when called:<ol><li><emu-xref href="#assert"><a href="https://tc39.es/ecma262/#assert">Assert</a></emu-xref>: <var>x</var> is a MatchState.</li><li><emu-xref href="#assert"><a href="https://tc39.es/ecma262/#assert">Assert</a></emu-xref>: <var>c</var> is a MatcherContinuation.</li><li>Let <var>e</var> be <var>x</var>.[[EndIndex]].</li><li>If <var>e</var> = 0, return <var>c</var>(<var>x</var>).</li><li>Return <emu-const>failure</emu-const>.</li></ol></li></ol></emu-alg>
 
         <emu-grammar><emu-production name="Assertion" type="lexical" collapsed="">
     <emu-nt><a href="#prod-Assertion">Assertion</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="3f75e477"><emu-t>\</emu-t><emu-t>z</emu-t></emu-rhs>
 </emu-production></emu-grammar>
-        <emu-alg><ol><li>Returns a new Matcher with parameters (<var>x</var>, <var>c</var>) that captures nothing and performs the following steps when called:<ol><li><emu-xref href="#assert"><a href="https://tc39.es/ecma262/#assert">Assert</a></emu-xref>: <var>x</var> is a State.</li><li><emu-xref href="#assert"><a href="https://tc39.es/ecma262/#assert">Assert</a></emu-xref>: <var>c</var> is a Continuation.</li><li>Let <var>e</var> be <var>x</var>'s <var>endIndex</var>.</li><li>Let <var>InputLength</var> be the number of elements in <var>Input</var>.</li><li>If <var>e</var> = <var>InputLength</var>, return <var>c</var>(<var>x</var>).</li><li>Return <emu-const>failure</emu-const>.</li></ol></li></ol></emu-alg>
+        <emu-alg><ol><li>Return a new Matcher with parameters (<var>x</var>, <var>c</var>) that captures nothing and performs the following steps when called:<ol><li><emu-xref href="#assert"><a href="https://tc39.es/ecma262/#assert">Assert</a></emu-xref>: <var>x</var> is a MatchState.</li><li><emu-xref href="#assert"><a href="https://tc39.es/ecma262/#assert">Assert</a></emu-xref>: <var>c</var> is a MatcherContinuation.</li><li>Let <var>Input</var> be <var>x</var>.[[Input]].</li><li>Let <var>e</var> be <var>x</var>.[[EndIndex]].</li><li>Let <var>InputLength</var> be the number of elements in <var>Input</var>.</li><li>If <var>e</var> = <var>InputLength</var>, return <var>c</var>(<var>x</var>).</li><li>Return <emu-const>failure</emu-const>.</li></ol></li></ol></emu-alg>
         </ins>
       </emu-clause>
     </emu-clause>

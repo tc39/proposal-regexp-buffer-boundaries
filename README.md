@@ -75,7 +75,7 @@ This proposal can be consider syntax sugar over [RegExp modifiers](https://githu
 
 While RegExp modifiers can accomplish this task, the `\A` and `\z` escapes are convenient and portable
 across multiple different languages and are frequently found in language-independent resources such as
-JSON and YAML files which often used by build tools and editors, such as TextMate grammar files, and are
+JSON and YAML files which are often used by build tools and editors, such as TextMate grammar files, and are
 frequently consumed by ECMAScript applications. As such, introducing consistent syntax for this behavior
 improves portability and allows for more reuse of Regular Expression patterns found in documentation on 
 the web as well as source code produced by LLMs and coding agents.

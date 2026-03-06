@@ -66,6 +66,20 @@ engines. As a result it has the benefit of extensive existing documentation onli
 well as the documentation from other languages. This significantly lessens the learning curve for `\A`
 over its alternatives.
 
+## Relationship to RegExp Modifiers
+
+This proposal can be consider syntax sugar over [RegExp modifiers](https://github.com/tc39/proposal-regexp-modifiers) (Stage 4):
+
+- `\A` → `(?-m:^)`  
+- `\z` → `(?-m:$)`
+
+While RegExp modifiers can accomplish this task, the `\A` and `\z` escapes are convenient and portable
+across multiple different languages and are frequently found in language-independent resources such as
+JSON and YAML files which often used by build tools and editors, such as TextMate grammar files, and are
+frequently consumed by ECMAScript applications. As such, introducing consistent syntax for this behavior
+improves portability and allows for more reuse of Regular Expression patterns found in documentation on 
+the web as well as source code produced by LLMs and coding agents.
+
 <!--#endregion:motivations-->
 
 <!--#region:prior-art-->
@@ -117,24 +131,29 @@ For more information about the `v` flag, see https://github.com/tc39/proposal-re
 
 ```js
 // without buffer boundaries
-const pattern = String.raw`^foo$`;
-const re1 = new RegExp(pattern, "u");
+const re1 = /^foo$/u;
 re1.test("foo"); // true
 re1.test("foo\nbar"); // false
 
-const re2 = new RegExp(pattern, "um");
-re1.test("foo"); // true
-re1.test("foo\nbar"); // true
+const re2 = /^foo$/um;
+re2.test("foo"); // true
+re2.test("foo\nbar"); // true
 
+// with modifiers
+const re3 = /(?-m:^)foo(?-m:$)/um;
+re3.test("foo"); // true
+re3.test("foo\nbar"); // false
+```
+
+```js
 // with buffer boundaries
-const pattern = String.raw`\Afoo\z`;
-const re1 = new RegExp(pattern, "u");
+const re1 = /\Afoo\z/u;
 re1.test("foo"); // true
 re1.test("foo\nbar"); // false
 
-const re2 = new RegExp(pattern, "um");
-re1.test("foo"); // true
-re1.test("foo\nbar"); // false
+const re2 = /\Afoo\z/um;
+re2.test("foo"); // true
+re2.test("foo\nbar"); // false
 
 // mixing buffer boundaries and anchors
 const re = /\Afoo|^bar$|baz\z/um;
@@ -198,16 +217,25 @@ The following is a high-level list of tasks to progress through each stage of th
 * [x] [Initial specification text][Specification].  
 * [ ] ~~[Transpiler support][Transpiler] (_Optional_).~~  
 
-### Stage 3 Entrance Criteria
+### Stage 2.7 Entrance Criteria
 
 * [x] [Complete specification text][Specification].  
-* [ ] Designated reviewers have [signed off][Stage3ReviewerSignOff] on the current spec text.  
-* [ ] The ECMAScript editor has [signed off][Stage3EditorSignOff] on the current spec text.  
+* [ ] Designated reviewers have signed off on the current spec text:
+  * [ ] Richard Gibson ([#5](https://github.com/tc39/proposal-regexp-buffer-boundaries/issues/5))
+  * [ ] Waldemar Horwat ([#4](https://github.com/tc39/proposal-regexp-buffer-boundaries/issues/4))
+  * [x] Chris de Almeida
+* [x] The ECMAScript editor has [signed off][Stage3EditorSignOff] on the current spec text.  
+
+### Stage 3 Entrance Criteria
+
+* [ ] [Test262](https://github.com/tc39/test262) acceptance tests have been written ([ecma262/test262#4975](https://github.com/tc39/test262/pull/4975)) for mainline usage scenarios and [merged][Test262PullRequest].  
 
 ### Stage 4 Entrance Criteria
 
-* [ ] [Test262](https://github.com/tc39/test262) acceptance tests have been written for mainline usage scenarios and [merged][Test262PullRequest].  
-* [ ] Two compatible implementations which pass the acceptance tests: [\[1\]][Implementation1], [\[2\]][Implementation2].  
+* [ ] Two compatible implementations which pass the acceptance tests:
+  * [ ] [TBD][Implementation1]
+  * [ ] [TBD][Implementation2].
+  * [x] [Engine262](https://github.com/engine262/engine262/pull/334)
 * [ ] A [pull request][Ecma262PullRequest] has been sent to tc39/ecma262 with the integrated spec text.  
 * [ ] The ECMAScript editor has signed off on the [pull request][Ecma262PullRequest].  
 <!--#endregion:todo-->
@@ -224,9 +252,8 @@ The following is a high-level list of tasks to progress through each stage of th
 [Specification]: https://tc39.es/proposal-regexp-buffer-boundaries
 
 [Transpiler]: #todo
-[Stage3ReviewerSignOff]: #todo
-[Stage3EditorSignOff]: #todo
-[Test262PullRequest]: #todo
+[Stage3EditorSignOff]: https://github.com/tc39/proposal-regexp-buffer-boundaries/issues/6
+[Test262PullRequest]: https://github.com/tc39/test262/pull/4975
 [Implementation1]: #todo
 [Implementation2]: #todo
 [Ecma262PullRequest]: #todo

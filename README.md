@@ -221,7 +221,7 @@ The following is a high-level list of tasks to progress through each stage of th
 
 * [x] [Complete specification text][Specification].  
 * [ ] Designated reviewers have signed off on the current spec text:
-  * [ ] Richard Gibson ([#5](https://github.com/tc39/proposal-regexp-buffer-boundaries/issues/5))
+  * [x] Richard Gibson ([#5](https://github.com/tc39/proposal-regexp-buffer-boundaries/issues/5))
   * [ ] Waldemar Horwat ([#4](https://github.com/tc39/proposal-regexp-buffer-boundaries/issues/4))
   * [x] Chris de Almeida
 * [x] The ECMAScript editor has [signed off][Stage3EditorSignOff] on the current spec text.  

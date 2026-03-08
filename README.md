@@ -228,7 +228,7 @@ The following is a high-level list of tasks to progress through each stage of th
 
 ### Stage 3 Entrance Criteria
 
-* [ ] [Test262](https://github.com/tc39/test262) acceptance tests have been written ([ecma262/test262#4975][Test262PullRequest]) for mainline usage scenarios and merged.  
+* [ ] [Test262](https://github.com/tc39/test262) acceptance tests have been written ([tc39/test262#4975][Test262PullRequest]) for mainline usage scenarios and merged.  
 
 ### Stage 4 Entrance Criteria
 

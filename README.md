@@ -199,6 +199,10 @@ re.test("\nbaz");       // true
 - December 15, 2021 &mdash; Proposed for Stage 2 ([slides](https://1drv.ms/p/s!AjgWTO11Fk-Tkfs-sKyEtV6B_S-poQ?e=U7ToKV))
   - Outcome: `\A` and `\z` advanced to Stage 2 (`\Z` did not advance, but will be reserved)
   - Stage 2 Reviewers: Richard Gibson, Waldemar Horwat
+- March 10, 2026 &mdash; Proposed for Stage 2.7 as a late agenda item ([slides](https://1drv.ms/p/c/934f1675ed4c1638/IQCTgpGYlj_dTblwh8sK7M9HAQRbd5eUz4b_XF4t1rxe_38?e=TDhJ9C))
+  - Blocked from advancement due to insufficient time to review
+  - Generally positive sentiment otherwise
+  - Will bring back to plenary in May, 2026
 
 <!--#region:todo-->
 # TODO

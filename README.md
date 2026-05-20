@@ -2,7 +2,7 @@
 # Regular Expression Buffer Boundaries for ECMAScript
 
 This proposal seeks to introduce `\A`, `\z` and `\Z` character escapes to Unicode-mode regular expressions as synonyms
-for `(?-m:^)`, `(?-m:$)` and `(?-m:(?:\r\n|\r|\n|\u2028|\u2029)?$)`, respectively.
+for `(?-m:^)`, `(?-m:$)` and `(?=(?:\r\n|\n|\r|\u2028|\u2029)?(?-m:$))`, respectively.
 
 <!--#endregion:intro-->
 
@@ -73,7 +73,7 @@ This proposal can be consider syntax sugar over [RegExp modifiers](https://githu
 
 - `\A` → `(?-m:^)`  
 - `\z` → `(?-m:$)`  
-- `\Z` → `(?-m:(?:\r\n|\r|\n|\u2028|\u2029)?$)`
+- `\Z` → `(?=(?:\r\n|\n|\r|\u2028|\u2029)?(?-m:$))`
 
 While RegExp modifiers can accomplish this task, the `\A`, `\z` and `\Z` escapes are convenient and portable
 across multiple different languages and are frequently found in language-independent resources such as

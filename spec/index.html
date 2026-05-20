@@ -50,6 +50,7 @@ contributors: Ron Buckton, Ecma International
           `$`
           <ins>[+UnicodeMode] `\` `A`</ins>
           <ins>[+UnicodeMode] `\` `z`</ins>
+          <ins>[+UnicodeMode] `\` `Z`</ins>
           `\` `b`
           `\` `B`
           `(` `?` `=` Disjunction[?UnicodeMode, ?N] `)`
@@ -231,11 +232,6 @@ contributors: Ron Buckton, Ecma International
       <emu-note>
         <p>A number of productions in this section are given alternative definitions in section <emu-xref href="#sec-regular-expressions-patterns"></emu-xref>.</p>
       </emu-note>
-      <ins class="block">
-        <emu-note>
-          While the sequence `\Z` is already an error when either the `u` or `v` flags are present, it is reserved for possible future use as an extension of the `\A` and `\z` assertions.
-        </emu-note>
-      </ins>
     </emu-clause>
 
     <emu-clause id="sec-pattern-semantics">
@@ -252,11 +248,11 @@ contributors: Ron Buckton, Ecma International
           Assertion :: `\` `A`
         </emu-grammar>
         <emu-alg>
-          1. Return a new Matcher with parameters (_x_, _c_) that captures nothing and performs the following steps when called:
-            1. Assert: _x_ is a MatchState.
-            1. Assert: _c_ is a MatcherContinuation.
-            1. Let _e_ be _x_.[[EndIndex]].
-            1. If _e_ = 0, return _c_(_x_).
+          1. Return a new Matcher with parameters (_matchState_, _continue_) that captures nothing and performs the following steps when called:
+            1. Assert: _matchState_ is a MatchState.
+            1. Assert: _continue_ is a MatcherContinuation.
+            1. Let _e_ be _matchState_.[[EndIndex]].
+            1. If _e_ = 0, return _continue_(_matchState_).
             1. Return ~failure~.
         </emu-alg>
 
@@ -264,13 +260,31 @@ contributors: Ron Buckton, Ecma International
           Assertion :: `\` `z`
         </emu-grammar>
         <emu-alg>
-          1. Return a new Matcher with parameters (_x_, _c_) that captures nothing and performs the following steps when called:
-            1. Assert: _x_ is a MatchState.
-            1. Assert: _c_ is a MatcherContinuation.
-            1. Let _Input_ be _x_.[[Input]].
-            1. Let _e_ be _x_.[[EndIndex]].
-            1. Let _InputLength_ be the number of elements in _Input_.
-            1. If _e_ = _InputLength_, return _c_(_x_).
+          1. Return a new Matcher with parameters (_matchState_, _continue_) that captures nothing and performs the following steps when called:
+            1. Assert: _matchState_ is a MatchState.
+            1. Assert: _continue_ is a MatcherContinuation.
+            1. Let _input_ be _matchState_.[[Input]].
+            1. Let _e_ be _matchState_.[[EndIndex]].
+            1. Let _inputLength_ be the number of elements in _input_.
+            1. If _e_ = _inputLength_, return _continue_(_matchState_).
+            1. Return ~failure~.
+        </emu-alg>
+
+        <emu-grammar>
+          Assertion :: `\` `Z`
+        </emu-grammar>
+        <emu-alg>
+          1. Return a new Matcher with parameters (_matchState_, _continue_) that captures nothing and performs the following steps when called:
+            1. Assert: _matchState_ is a MatchState.
+            1. Assert: _continue_ is a MatcherContinuation.
+            1. Let _input_ be _matchState_.[[Input]].
+            1. Let _e_ be _matchState_.[[EndIndex]].
+            1. Let _inputLength_ be the number of elements in _input_.
+            1. If _e_ = _inputLength_, return _continue_(_matchState_).
+            1. If _e_ = _inputLength_ - 1 and the character _input_[_e_] is matched by |LineTerminator|, then
+               1. Return _continue_(_matchState_).
+            1. If _e_ = _inputLength_ - 2, the character _input_[_e_] is matched by &lt;CR&gt; and the character _input_[_e_ + 1] is matched by &lt;LF&gt;, then
+               1. Return _continue_(_matchState_).
             1. Return ~failure~.
         </emu-alg>
         </ins>
@@ -305,6 +319,7 @@ contributors: Ron Buckton, Ecma International
           `$`
           <ins>[+UnicodeMode] `\` `A`</ins>
           <ins>[+UnicodeMode] `\` `z`</ins>
+          <ins>[+UnicodeMode] `\` `Z`</ins>
           `\` `b`
           `\` `B`
           [+UnicodeMode] `(` `?` `=` Disjunction[+UnicodeMode, ?N] `)`

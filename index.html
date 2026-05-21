@@ -1848,7 +1848,7 @@ li.menu-search-result-term:before {
           Runtime Semantics: CompileAssertion
         "><span class="secnum">1.1.2.1</span> 
           RS: CompileAssertion
-        </a></li></ol></li></ol></li></ol></li><li><span class="item-toggle">◢</span><a href="#sec-additional-ecmascript-features-for-web-browsers" title="Additional ECMAScript Features for Web Browsers"><span class="secnum">A</span> Additional ECMAScript Features for Web Browsers</a><ol class="toc"><li><span class="item-toggle">◢</span><a href="#sec-additional-syntax" title="Additional Syntax"><span class="secnum">A.1</span> Additional Syntax</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-regular-expressions-patterns" title="Regular Expressions Patterns"><span class="secnum">A.1.1</span> Regular Expressions Patterns</a></li></ol></li></ol></li><li><span class="item-toggle-none"></span><a href="#sec-copyright-and-software-license" title="Copyright &amp; Software License"><span class="secnum">B</span> Copyright &amp; Software License</a></li></ol></div></div><div id="spec-container"><h1 class="version first">Stage 2 Draft / March 10, 2026</h1><h1 class="title">Regular Expression Buffer Boundaries for ECMAScript</h1>
+        </a></li></ol></li></ol></li></ol></li><li><span class="item-toggle">◢</span><a href="#sec-additional-ecmascript-features-for-web-browsers" title="Additional ECMAScript Features for Web Browsers"><span class="secnum">A</span> Additional ECMAScript Features for Web Browsers</a><ol class="toc"><li><span class="item-toggle">◢</span><a href="#sec-additional-syntax" title="Additional Syntax"><span class="secnum">A.1</span> Additional Syntax</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-regular-expressions-patterns" title="Regular Expressions Patterns"><span class="secnum">A.1.1</span> Regular Expressions Patterns</a></li></ol></li></ol></li><li><span class="item-toggle-none"></span><a href="#sec-copyright-and-software-license" title="Copyright &amp; Software License"><span class="secnum">B</span> Copyright &amp; Software License</a></li></ol></div></div><div id="spec-container"><h1 class="version first">Stage 2 Draft / May 21, 2026</h1><h1 class="title">Regular Expression Buffer Boundaries for ECMAScript</h1>
 
 <emu-intro id="sec-intro">
   <h1>Introduction</h1>
@@ -1891,6 +1891,7 @@ li.menu-search-result-term:before {
     <emu-rhs a="1262cc92"><emu-t>$</emu-t></emu-rhs>
     <ins><emu-rhs a="7d02e8fd" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints><emu-t>\</emu-t><emu-t>A</emu-t></emu-rhs></ins>
     <ins><emu-rhs a="12b59e83" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints><emu-t>\</emu-t><emu-t>z</emu-t></emu-rhs></ins>
+    <ins><emu-rhs a="995eae1c" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints><emu-t>\</emu-t><emu-t>Z</emu-t></emu-rhs></ins>
     <emu-rhs a="1e228da5"><emu-t>\</emu-t><emu-t>b</emu-t></emu-rhs>
     <emu-rhs a="a5dc97fa"><emu-t>\</emu-t><emu-t>B</emu-t></emu-rhs>
     <emu-rhs a="a9721f06"><emu-t>(</emu-t><emu-t>?</emu-t><emu-t>=</emu-t><emu-nt params="?UnicodeMode, ?N" id="_ref_13"><a href="#prod-Disjunction">Disjunction</a><emu-mods><emu-params>[?UnicodeMode, ?N]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t></emu-rhs>
@@ -2067,14 +2068,9 @@ li.menu-search-result-term:before {
     <emu-rhs a="8b809e79"><emu-nt params="?UnicodeMode" id="_ref_87"><a href="#prod-CharacterEscape">CharacterEscape</a><emu-mods><emu-params>[?UnicodeMode]</emu-params></emu-mods></emu-nt></emu-rhs>
 </emu-production></emu-grammar>
 
-      <emu-note><span class="note">Note 1</span><div class="note-contents">
+      <emu-note><span class="note">Note</span><div class="note-contents">
         <p>A number of productions in this section are given alternative definitions in section <emu-xref href="#sec-regular-expressions-patterns" id="_ref_0"><a href="#sec-regular-expressions-patterns">A.1.1</a></emu-xref>.</p>
       </div></emu-note>
-      <ins class="block">
-        <emu-note><span class="note">Note 2</span><div class="note-contents">
-          While the sequence <code>\Z</code> is already an error when either the <code>u</code> or <code>v</code> flags are present, it is reserved for possible future use as an extension of the <code>\A</code> and <code>\z</code> assertions.
-        </div></emu-note>
-      </ins>
     </emu-clause>
 
     <emu-clause id="sec-pattern-semantics">
@@ -2090,12 +2086,17 @@ li.menu-search-result-term:before {
         <emu-grammar><emu-production name="Assertion" type="lexical" collapsed="">
     <emu-nt><a href="#prod-Assertion">Assertion</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="45bceed4"><emu-t>\</emu-t><emu-t>A</emu-t></emu-rhs>
 </emu-production></emu-grammar>
-        <emu-alg><ol><li>Return a new Matcher with parameters (<var>x</var>, <var>c</var>) that captures nothing and performs the following steps when called:<ol><li><emu-xref href="#assert"><a href="https://tc39.es/ecma262/#assert">Assert</a></emu-xref>: <var>x</var> is a MatchState.</li><li><emu-xref href="#assert"><a href="https://tc39.es/ecma262/#assert">Assert</a></emu-xref>: <var>c</var> is a MatcherContinuation.</li><li>Let <var>e</var> be <var>x</var>.[[EndIndex]].</li><li>If <var>e</var> = 0, return <var>c</var>(<var>x</var>).</li><li>Return <emu-const>failure</emu-const>.</li></ol></li></ol></emu-alg>
+        <emu-alg><ol><li>Return a new Matcher with parameters (<var>matchState</var>, <var>continue</var>) that captures nothing and performs the following steps when called:<ol><li><emu-xref href="#assert"><a href="https://tc39.es/ecma262/#assert">Assert</a></emu-xref>: <var>matchState</var> is a MatchState.</li><li><emu-xref href="#assert"><a href="https://tc39.es/ecma262/#assert">Assert</a></emu-xref>: <var>continue</var> is a MatcherContinuation.</li><li>Let <var>e</var> be <var>matchState</var>.[[EndIndex]].</li><li>If <var>e</var> = 0, return <var>continue</var>(<var>matchState</var>).</li><li>Return <emu-const>failure</emu-const>.</li></ol></li></ol></emu-alg>
 
         <emu-grammar><emu-production name="Assertion" type="lexical" collapsed="">
     <emu-nt><a href="#prod-Assertion">Assertion</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="3f75e477"><emu-t>\</emu-t><emu-t>z</emu-t></emu-rhs>
 </emu-production></emu-grammar>
-        <emu-alg><ol><li>Return a new Matcher with parameters (<var>x</var>, <var>c</var>) that captures nothing and performs the following steps when called:<ol><li><emu-xref href="#assert"><a href="https://tc39.es/ecma262/#assert">Assert</a></emu-xref>: <var>x</var> is a MatchState.</li><li><emu-xref href="#assert"><a href="https://tc39.es/ecma262/#assert">Assert</a></emu-xref>: <var>c</var> is a MatcherContinuation.</li><li>Let <var>Input</var> be <var>x</var>.[[Input]].</li><li>Let <var>e</var> be <var>x</var>.[[EndIndex]].</li><li>Let <var>InputLength</var> be the number of elements in <var>Input</var>.</li><li>If <var>e</var> = <var>InputLength</var>, return <var>c</var>(<var>x</var>).</li><li>Return <emu-const>failure</emu-const>.</li></ol></li></ol></emu-alg>
+        <emu-alg><ol><li>Return a new Matcher with parameters (<var>matchState</var>, <var>continue</var>) that captures nothing and performs the following steps when called:<ol><li><emu-xref href="#assert"><a href="https://tc39.es/ecma262/#assert">Assert</a></emu-xref>: <var>matchState</var> is a MatchState.</li><li><emu-xref href="#assert"><a href="https://tc39.es/ecma262/#assert">Assert</a></emu-xref>: <var>continue</var> is a MatcherContinuation.</li><li>Let <var>input</var> be <var>matchState</var>.[[Input]].</li><li>Let <var>e</var> be <var>matchState</var>.[[EndIndex]].</li><li>Let <var>inputLength</var> be the number of elements in <var>input</var>.</li><li>If <var>e</var> = <var>inputLength</var>, return <var>continue</var>(<var>matchState</var>).</li><li>Return <emu-const>failure</emu-const>.</li></ol></li></ol></emu-alg>
+
+        <emu-grammar><emu-production name="Assertion" type="lexical" collapsed="">
+    <emu-nt><a href="#prod-Assertion">Assertion</a></emu-nt><emu-geq>::</emu-geq><emu-rhs a="0acf49a0"><emu-t>\</emu-t><emu-t>Z</emu-t></emu-rhs>
+</emu-production></emu-grammar>
+        <emu-alg><ol><li>Return a new Matcher with parameters (<var>matchState</var>, <var>continue</var>) that captures nothing and performs the following steps when called:<ol><li><emu-xref href="#assert"><a href="https://tc39.es/ecma262/#assert">Assert</a></emu-xref>: <var>matchState</var> is a MatchState.</li><li><emu-xref href="#assert"><a href="https://tc39.es/ecma262/#assert">Assert</a></emu-xref>: <var>continue</var> is a MatcherContinuation.</li><li>Let <var>input</var> be <var>matchState</var>.[[Input]].</li><li>Let <var>e</var> be <var>matchState</var>.[[EndIndex]].</li><li>Let <var>inputLength</var> be the number of elements in <var>input</var>.</li><li>If <var>e</var> = <var>inputLength</var>, return <var>continue</var>(<var>matchState</var>).</li><li>If <var>e</var> = <var>inputLength</var> - 1 and the character <var>input</var>[<var>e</var>] is matched by <emu-nt><a href="https://tc39.es/ecma262/#prod-LineTerminator">LineTerminator</a></emu-nt>, then<ol><li>Return <var>continue</var>(<var>matchState</var>).</li></ol></li><li>If <var>e</var> = <var>inputLength</var> - 2, the character <var>input</var>[<var>e</var>] is &lt;CR&gt;, and the character <var>input</var>[<var>e</var> + 1] is &lt;LF&gt;, then<ol><li>Return <var>continue</var>(<var>matchState</var>).</li></ol></li><li>Return <emu-const>failure</emu-const>.</li></ol></li></ol></emu-alg>
         </ins>
       </emu-clause>
     </emu-clause>
@@ -2127,6 +2128,7 @@ li.menu-search-result-term:before {
     <emu-rhs a="1262cc92"><emu-t>$</emu-t></emu-rhs>
     <ins><emu-rhs a="7d02e8fd" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints><emu-t>\</emu-t><emu-t>A</emu-t></emu-rhs></ins>
     <ins><emu-rhs a="12b59e83" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints><emu-t>\</emu-t><emu-t>z</emu-t></emu-rhs></ins>
+    <ins><emu-rhs a="995eae1c" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints><emu-t>\</emu-t><emu-t>Z</emu-t></emu-rhs></ins>
     <emu-rhs a="1e228da5"><emu-t>\</emu-t><emu-t>b</emu-t></emu-rhs>
     <emu-rhs a="a5dc97fa"><emu-t>\</emu-t><emu-t>B</emu-t></emu-rhs>
     <emu-rhs a="cf3b190e" constraints="+UnicodeMode"><emu-constraints>[+UnicodeMode]</emu-constraints><emu-t>(</emu-t><emu-t>?</emu-t><emu-t>=</emu-t><emu-nt params="+UnicodeMode, ?N" id="_ref_98"><a href="#prod-Disjunction">Disjunction</a><emu-mods><emu-params>[+UnicodeMode, ?N]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t></emu-rhs>

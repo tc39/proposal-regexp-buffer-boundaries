@@ -1,7 +1,8 @@
 <!--#region:intro-->
 # Regular Expression Buffer Boundaries for ECMAScript
 
-This proposal seeks to introduce `\A` and `\z` character escapes to Unicode-mode regular expressions as synonyms for `^` and `$` that are not affected by the `m` (multiline) flag.
+This proposal seeks to introduce `\A`, `\z` and `\Z` character escapes to Unicode-mode regular expressions as synonyms
+for `(?-m:^)`, `(?-m:$)` and `(?=(?:\r\n|\n|\r|\u2028|\u2029)?(?-m:$))`, respectively.
 
 <!--#endregion:intro-->
 
@@ -26,13 +27,13 @@ _For detailed status of this proposal see [TODO](#todo), below._
 > NOTE: See https://github.com/rbuckton/proposal-regexp-features for an overview of
 > how this proposal fits into other possible future features for Regular Expressions.
 
-Buffer Boundaries are a common feature across a wide array of regular expression engines that 
+Buffer Boundaries are a common feature across a wide array of regular expression engines that
 allow you to match the start or end of the entire input regardless of whether the `m` (multiline) flag
 has been set. Buffer Boundaries also allow you to match the start/end of a line *and* the start/end of 
 the input in a single RegExp using the `m` flag.
 
-While its possible to emulate `\A` and `\z` using existing patterns, the alternatives are harder to
-far read, and require a more comprehensive working understanding of regular experssions to interpret.
+While its possible to emulate `\A`, `\z` and `\Z` using existing patterns, the alternatives are far harder to
+read, and require a more comprehensive working understanding of regular experssions to interpret.
 
 For example, compare the following approaches:
 
@@ -60,7 +61,7 @@ In comparison, example (c) is far easier to read. It consists of a terse escape 
 of only two characters (`\A`), which makes it far easier to distinguish between special pattern syntax
 and plain text segments like `foo` and `bar`. 
 
-The `\A` and `\z` escapes have broad support across multiple other languages and regular expression 
+The `\A`, `\z`, and `\Z` escapes have broad support across multiple other languages and regular expression 
 engines. As a result it has the benefit of extensive existing documentation online, including 
 [Wikipedia](https://en.wikipedia.org/wiki/Regular_expression#Examples), numerous tutorial websites, as
 well as the documentation from other languages. This significantly lessens the learning curve for `\A`
@@ -71,9 +72,10 @@ over its alternatives.
 This proposal can be consider syntax sugar over [RegExp modifiers](https://github.com/tc39/proposal-regexp-modifiers) (Stage 4):
 
 - `\A` → `(?-m:^)`  
-- `\z` → `(?-m:$)`
+- `\z` → `(?-m:$)`  
+- `\Z` → `(?=(?:\r\n|\n|\r|\u2028|\u2029)?(?-m:$))`
 
-While RegExp modifiers can accomplish this task, the `\A` and `\z` escapes are convenient and portable
+While RegExp modifiers can accomplish this task, the `\A`, `\z` and `\Z` escapes are convenient and portable
 across multiple different languages and are frequently found in language-independent resources such as
 JSON and YAML files which are often used by build tools and editors, such as TextMate grammar files, and are
 frequently consumed by ECMAScript applications. As such, introducing consistent syntax for this behavior
@@ -105,18 +107,26 @@ Buffer boundaries are similar to the `^` and `$` anchors, except that they are n
 
 - `\A` &mdash; Matches the start of the input.
 - `\z` &mdash; Matches the end of the input.
-- ~~`\Z` &mdash; A zero-width assertion consisting of an optional newline at the end of the buffer. Equivalent to `(?=\R?\z)`.~~
+- `\Z` &mdash; A zero-width assertion consisting of an optional line terminator sequence at the end of the buffer.
+  - Equivalent to `(?=\R?\z)` when using the proposed `\R` escape sequence[^1].
 
-> NOTE: Requires the `u` or `v` flag, as `\A`, `\z`, and `\Z` are currently just escapes for `A`, `z` and `Z` without the `u` or `v` flag. 
+> [!NOTE]
+> Requires the `u` or `v`[^2] flag, as outside of the `u` or `v` flag [Annex B](https://tc39.es/ecma262/#sec-regular-expressions-patterns) 
+> considers `\A`, `\z`, and `\Z` to be _SourceCharacterIdentityEscape_ sequences and represent the literal `A`, `z`, and
+> `Z` characters.
 
-> NOTE: Not supported inside of a character class.
+> [!NOTE]
+> Not supported inside of a character class.
 
-> NOTE: The `\Z` assertion is no longer being considered as part of this proposal as of December 15th, 2021, but has
-> been reserved for possible future use.
+> [!NOTE]
+> ~~The `\Z` assertion is no longer being considered as part of this proposal as of December 15th, 2021, but has
+> been reserved for possible future use.~~
 
-For more information about the `v` flag, see https://github.com/tc39/proposal-regexp-set-notation.
+> [!NOTE]
+> The `\Z` assertion was once again adopted and advanced to Stage 2.7 as of the May, 2026 plenary.
 
-~~For more information about the `\R` escape sequence, see https://github.com/tc39/proposal-regexp-r-escape.~~
+[^1]: For more information about the `\R` escape sequence, see https://github.com/tc39/proposal-regexp-r-escape.
+[^2]: For more information about the `v` flag, see https://github.com/tc39/proposal-regexp-set-notation.
 
 <!--#endregion:syntax-->
 
@@ -170,6 +180,16 @@ re.test("baz\n");       // false
 re.test("\nbaz");       // true
 ```
 
+```js
+// matching at line terminator sequence at end of buffer
+const re = /end\Z/;
+re.test("The end"); // true
+re.test("The end\n"); // true
+re.test("The end\r\n"); // true
+re.test("The end\u2028"); // true
+re.test("The end\n...or is it?"); // false
+```
+
 <!--#endregion:examples-->
 
 <!--#region:api-->
@@ -203,6 +223,9 @@ re.test("\nbaz");       // true
   - Blocked from advancement due to insufficient time to review
   - Generally positive sentiment otherwise
   - Will bring back to plenary in May, 2026
+- May 19, 2026 &mdash; Reintroduce `\Z` and proposed for Stage 2.7 ([slides](https://1drv.ms/p/c/934f1675ed4c1638/IQBpJAD8CJutTpZ3x70Mr8C6AQ6Z26p2_nowaDED0_XQfRY?e=FLSMPe))
+  - Advanced to Stage 2.7 on conditionally of reviewed spec text for `\Z`.
+  - Consensus to reintroduce `\Z`.
 
 <!--#region:todo-->
 # TODO
@@ -224,15 +247,15 @@ The following is a high-level list of tasks to progress through each stage of th
 ### Stage 2.7 Entrance Criteria
 
 * [x] [Complete specification text][Specification].  
-* [ ] Designated reviewers have signed off on the current spec text:
+* [x] Designated reviewers have signed off on the current spec text:
   * [x] Richard Gibson ([#5](https://github.com/tc39/proposal-regexp-buffer-boundaries/issues/5))
-  * [ ] Waldemar Horwat ([#4](https://github.com/tc39/proposal-regexp-buffer-boundaries/issues/4))
+  * [x] Waldemar Horwat ([#4](https://github.com/tc39/proposal-regexp-buffer-boundaries/issues/4))
   * [x] Chris de Almeida
 * [x] The ECMAScript editor has [signed off][Stage3EditorSignOff] on the current spec text.  
 
 ### Stage 3 Entrance Criteria
 
-* [ ] [Test262](https://github.com/tc39/test262) acceptance tests have been written ([tc39/test262#4975][Test262PullRequest]) for mainline usage scenarios and merged.  
+* [x] [Test262](https://github.com/tc39/test262) acceptance tests have been written ([tc39/test262#4975][Test262PullRequest]) for mainline usage scenarios and merged.  
 
 ### Stage 4 Entrance Criteria
 

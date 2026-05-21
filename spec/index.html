@@ -283,7 +283,7 @@ contributors: Ron Buckton, Ecma International
             1. If _e_ = _inputLength_, return _continue_(_matchState_).
             1. If _e_ = _inputLength_ - 1 and the character _input_[_e_] is matched by |LineTerminator|, then
                1. Return _continue_(_matchState_).
-            1. If _e_ = _inputLength_ - 2, the character _input_[_e_] is matched by &lt;CR&gt; and the character _input_[_e_ + 1] is matched by &lt;LF&gt;, then
+            1. If _e_ = _inputLength_ - 2, the character _input_[_e_] is &lt;CR&gt;, and the character _input_[_e_ + 1] is &lt;LF&gt;, then
                1. Return _continue_(_matchState_).
             1. Return ~failure~.
         </emu-alg>

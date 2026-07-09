@@ -9,7 +9,7 @@ for `(?-m:^)`, `(?-m:$)` and `(?=(?:\r\n|\n|\r|\u2028|\u2029)?(?-m:$))`, respect
 <!--#region:status-->
 ## Status
 
-**Stage:** 2  
+**Stage:** 3  
 **Champion:** Ron Buckton ([@rbuckton](https://github.com/rbuckton))  
 
 _For detailed status of this proposal see [TODO](#todo), below._  
@@ -226,6 +226,8 @@ re.test("The end\n...or is it?"); // false
 - May 19, 2026 &mdash; Reintroduce `\Z` and proposed for Stage 2.7 ([slides](https://1drv.ms/p/c/934f1675ed4c1638/IQBpJAD8CJutTpZ3x70Mr8C6AQ6Z26p2_nowaDED0_XQfRY?e=FLSMPe))
   - Advanced to Stage 2.7 on conditionally of reviewed spec text for `\Z`.
   - Consensus to reintroduce `\Z`.
+- May 21, 2026 &mdash; Proposed advancement to Stage 3
+  - Advanced to Stage 3
 
 <!--#region:todo-->
 # TODO

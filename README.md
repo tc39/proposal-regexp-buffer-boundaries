@@ -265,7 +265,7 @@ The following is a high-level list of tasks to progress through each stage of th
   * [ ] [TBD][Implementation1]
   * [ ] [TBD][Implementation2].
   * [x] [Engine262](https://github.com/engine262/engine262/pull/334)
-* [ ] A [pull request][Ecma262PullRequest] has been sent to tc39/ecma262 with the integrated spec text.  
+* [x] A [pull request][Ecma262PullRequest] has been sent to tc39/ecma262 with the integrated spec text.  
 * [ ] The ECMAScript editor has signed off on the [pull request][Ecma262PullRequest].  
 <!--#endregion:todo-->
 
@@ -285,4 +285,4 @@ The following is a high-level list of tasks to progress through each stage of th
 [Test262PullRequest]: https://github.com/tc39/test262/pull/4975
 [Implementation1]: #todo
 [Implementation2]: #todo
-[Ecma262PullRequest]: #todo
+[Ecma262PullRequest]: https://github.com/tc39/ecma262/pull/3905
